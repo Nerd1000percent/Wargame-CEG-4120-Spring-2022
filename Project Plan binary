@@ -1,0 +1,53 @@
+Project Name	Wargaming for AI (Group F)
+Project Sponsor	Dr. John Reisner	Customer	Mr. Michael Seal
+Project Manager	Abdulrahman Albaiz	Group	F
+Project Start date	Jan 17, 2022	Project End date	Mar 21, 2022
+
+1.	Project Plan / Milestones ( )
+
+#	Task Name	Assigned To
+Prime / Backup	Start	Finish	Status
++	Requirements Phase	-	Jan 17	Jan 30	
+1	     Refine Requirements 	RL / CK	Jan 17	Jan 30	
+2	     Develop Prototype 	CK / RL	Jan 17	Jan 30	
+3	     Sign-off Requirements Document  	MS with RL	Jan 30	Jan 30	
++	Analysis and Design Phase	-	Jan 31	Feb 6	
+4	    Agree on the technology (language, database..)	CK / AS	Jan 31	Feb 1	
+5	    Develop Solution Design 	CK / AS	Jan 31	Feb 6	
+6	    Develop Use Cases 	AS / CK	Jan 31	Feb 6	
+7	   Develop Design Document  	AS / CK	Jan 31	Feb 6	
++	Implementation Phase	-	Feb 7	Feb 27	
+8	    Develop the solution	CK / AS	Feb 7	Feb 27	
+9	    Unit/module testing	CK / AS	Feb 7	Feb 27	
+10	    Completion of the implementation phase 		Feb 27	Feb 27	
++	Testing Phase	-	Feb 21	Mar 13	
+10	    Develop Test Plan and UAT Form	DC / RL	Feb 21	Feb 27	
+	--------------  Spring Break   --------------		Feb 28	Mar 6	
+11	    Conduct Testing & Quality Assurance	DC / RL / AA	Mar 7	Mar 8	
+12	    Update Solution Based on Test Results	CK / AS	Mar 9	Mar 13	
+13	User Acceptance Testing (UAT)  	MS with CK	Mar 14	Mar 14	
+14	Develop User’s Guide	DC	Mar 14	Mar 15	
+15	End-User Training	DC	Mar 16	Mar 16	
+16	Provide End-User Support	DC	Mar 16	Mar 18	
+17	Develop Documentations	ALL / AA	Jan 17	Mar 20	
+18	Create Project Presentation	AA	Mar 14	Mar 21	
+19	Conduct Project Presentation  	TBD 	Mar 21	Mar 21	
+20	Project Handover and Closing 	ALL 	Mar 22	Mar 25	
+	Project Completed  	-	Mar 25	Mar 25	
+
+	The backup person will be assisting the prime assignee with key tasks and will be shadowing him to take the lead in case the prime could not complete the task for any reason. This is part of the Project Risk Management Plan.
+
+
+
+
+
+2.	Project Team
+Title	Name	Initials	Remarks
+Project Sponsor	Dr. John Reisner	JR	
+Customer	Mr. Michael Seal	MS	Main User
+Project Manager	Abdulrahman Albaiz	AA	
+Lead Analyst	Robert Linger	RL	
+Lead Developer	Christopher Kemplin	CK	
+Comms Manager	Ahmed Alsaedi	AS	
+Lead Tester	Daniel Curto	DC	
+

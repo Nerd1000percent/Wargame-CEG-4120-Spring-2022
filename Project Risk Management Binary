@@ -1,0 +1,47 @@
+Project Name	Wargaming for AI (Group F)
+Project Sponsor	Dr. John Reisner	Customer	Mr. Michael Seal
+Project Manager	Abdulrahman Albaiz	Group	F
+Project Start date	Jan 17, 2022	Project End date	Mar 21, 2022
+
+1.	Risk Register
+
+#	Risk / Issue	Risk Treatment Plan (RTP)	Risk Owner	Raised	ECD	Status
+1	Vague Requirements [Issue]	Review the requirements submitted and clarify all concerns with the user	RL	Jan 19	Jan 30	Pending
+2	Lack of Technical Experience [Risk]	TBD	CK	Jan 19	TBD	Open
+3	Lack of Testing [Risk]	A dedicated testing phase is planned along with a QA task during the project	DC	Jan 19	Mar 13	Pending
+4	Insufficient Time [Risk]	(A)	Develop a detailed project plan with a work breakdown structure and track implementation.
+(B)	Negotiate with the user to limit the project scope as per the time available.	AA
+
+
+RL
+
+	Jan 19	Jan 30	Pending
+5	Improper Planning [Risk]	Develop a detailed project plan with a work breakdown structure.	AA	Jan 19	Jan 30	Pending
+6	Scope Creep [Risk]	To ensure, during the discussion with the user, to limit the scope and not to include any additions. 	RL	Jan 19	Jan 30	Pending
+7						
+
+•	Project Risk: is an uncertain event that may or may not occur during a project.
+•	Project issue: is a problem that has been encountered in executing project activities. 
+•	Status: 
+o	Open:  has not yet been addressed and there is no agreed/documented treatment plan.
+o	Pending: addressed, treatment plan in progress.
+o	Closed: the treatment plan has been successfully completed and the risk or issue is closed.
+•	Raised: the date when the risk or issue has been registered.
+•	ECD: Expected Completion Date.
+•	TBD: To Be determined.
+
+
+
+ 
+
+
+2.	Project Team
+Title	Name	Initials	Remarks
+Project Sponsor	Dr. John Reisner	JR	
+Customer	Mr. Michael Seal	MS	Main User
+Project Manager	Abdulrahman Albaiz	AA	
+Lead Analyst	Robert Linger	RL	
+Lead Developer	Christopher Kemplin	CK	
+Comms Manager	Ahmed Alsaedi	AS	
+Lead Tester	Daniel Curto	DC	
+

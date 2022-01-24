@@ -1,0 +1,87 @@
+Project Name	Wargaming for AI (Group F)
+Project Sponsor	Dr. John Reisner	Customer	Mr. Michael Seal
+Project Manager	Abdulrahman Albaiz	Group	F
+Project Start date	Jan 17, 2022	Project End date	Mar 21, 2022
+	
+1.	Organization
+WSU	Computer Science and Engineering	Portfolio	NA
+Department Head	NA	Cost Center	NA
+
+2.	Project Description & Objectives 
+
+Background: The broad Department of Defense wargaming community is interested in applying Artificial Intelligence and Machine Learning (AI/ML) to its craft.  However, there are significant structural barriers to achieving AI/ML based gains because true war-games or serious games are currently digitally-supported analog constructs. 
+Project: A limited, turn-based Wargame-for-AI engine will be developed to demonstrate the features and functionality of an AI/ML friendly game construct.  There is a significant need to educate potential future users on wargaming specific aspects of the representation problem for AI/ML. Regardless of AI application, digital representations which present detailed in-game expected outcomes information stands to significantly improve human play. The resulting product will be used to demonstrate a viable wargame-for-AI engine of robust expected outcomes data to players improves the overall game outcomes in human play.
+The general scope of the initial game is constrained to an advanced board-game level, of a lower complexity than typical 1-3 hour-to-play map based games from the mid-1980’s heyday of entertainment wargaming.  (For a digital example, examine Microprose Decision in the Desert and Crusade in Europe, which are more advanced than the intended product.)
+
+
+
+
+
+
+
+ 
+
+3.	In-Scope/Out-of-Scope & Deliverables 
+
+The key objectives of this engagement is as below,
+•	TBD
+•	TBD
+
+Out-of-scope:
+•	TBD
+•	TBD
+
+
+#	Deliverables
+1	Software Solution
+2	Documentations
+
+
+
+4.	Initial Project Plan/Milestones
+
+#	Task Name	Duration	Start	Finish
+1	Requirements Refinement and Prototype	2 Weeks	Jan 17	Jan 30
+2	Analysis and Design	1 Week	Jan 31	Feb 6
+3	Implementation	3 Weeks	Feb 7	Feb 27
+	------------------------   Spring Break   ------------------------	1 Week	Feb 28	Mar 6
+4	User Acceptance Testing (UAT)	1 Week	Mar 7	Mar 13
+5	Training and support	1 Week	Mar 14	Mar 20
+6	Documentation	1 Week	Mar 14	Mar 20
+
+* This is a high-level plan. The detailed project plan will be available after approving the Requirement Specification Document.
+
+5.	Financial Reference  
+Budget: Free of charge, part of CEG4120/6120 Course	Work Order: NA	Cost Center: NA  
+
+
+6.	Stakeholders
+
+1	Name: Dr. John Reisner	Department: CSE	Responsibility: Sponsor
+2	Name: Mr. Michael Seal	Department: AFIT	Responsibility: Customer
+3	Name: Abdulrahman Albaiz 	Department: CSE	Responsibility: Project Manager
+4	Name: Robert Linger	Department: CSE	Responsibility: Lead Analyst
+5	Name: Christopher Kemplin	Department: CSE	Responsibility: Lead Developer
+6	Name: Ahmed Alsaedi	Department: CSE	Responsibility: Comms Manager
+7	Name: Daniel Curto	Department: CSE	Responsibility: Lead Tester
+
+
+7.	Governance
+
+•	Meeting Frequency (weekly, biweekly, monthly, etc.): 
+Weekly
+
+•	Project Progress Status Report (weekly, biweekly, monthly, etc.)
+Biweekly
+
+ 
+8.	Approvals
+Title	Name	Signature	Date
+Project Sponsor	Dr. John Reisner		
+Customer	Mr. Michael Seal		
+Project Manager	Abdulrahman Albaiz		
+Lead Analyst	Robert Linger		
+Lead Developer	Christopher Kemplin		
+Comms Manager	Ahmed Alsaedi		
+Lead Tester	Daniel Curto		
+

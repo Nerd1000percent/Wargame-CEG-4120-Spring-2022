@@ -27,10 +27,10 @@ int Unit::activeFlagGetter() {
 
 //functions
 
-int decreaseDefensePower(){
+int Unit::decreaseDefensePower(){
 //math
 }
 
-int decreaseAttackPower(){
+int Unit::decreaseAttackPower(){
 //math
 }

@@ -3,7 +3,7 @@
 //Constructor
 Terrain::Terrain() {
    this->name = "";
-   this-> movementCost= 0;
+   this->movementCost= 0;
 }
 //Getter
 string Terrain::nameGetter () {

@@ -1,4 +1,6 @@
 //Create a class Tiles
+#ifndef Tiles.h
+#define Tiles.h
 #pragma once
 #include<string>
 #include<iostream>
@@ -22,3 +24,4 @@ public:
    void removeUnit();
 
 };
+#endif

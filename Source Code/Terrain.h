@@ -1,4 +1,6 @@
 //Create a class Terrain
+#ifndef Terrain.h
+#define Terrain.h
 #pragma once
 #include<string>
 #include<iostream>
@@ -18,3 +20,4 @@ public:
    int movementCostGetter();
 
 };
+#endif

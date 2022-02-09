@@ -1,4 +1,6 @@
 //Create a class Unit
+#ifndef Unit.h
+#define Unit.h
 #pragma once
 #include<string>
 #include<iostream>
@@ -29,3 +31,4 @@ public:
    int decreaseAttackPower();
 
 };
+#endif

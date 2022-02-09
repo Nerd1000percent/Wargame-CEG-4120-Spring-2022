@@ -1,4 +1,6 @@
 //Create a class Map
+#ifndef Map.h
+#define Map.h
 #pragma once
 #include<string>
 #include<iostream>
@@ -16,3 +18,4 @@ public:
    int arrayOfTilesGetter();
 
 };
+#endif

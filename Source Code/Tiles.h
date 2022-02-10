@@ -1,6 +1,6 @@
 //Create a class Tiles
-#ifndef Tiles.h
-#define Tiles.h
+#ifndef TILES-H
+#define TILES-H
 #pragma once
 #include<string>
 #include<iostream>

@@ -1,6 +1,6 @@
 //Create a class Map
-#ifndef Map.h
-#define Map.h
+#ifndef MAP-H
+#define MAP-H
 #pragma once
 #include<string>
 #include<iostream>

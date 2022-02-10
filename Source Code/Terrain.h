@@ -1,6 +1,6 @@
 //Create a class Terrain
-#ifndef Terrain.h
-#define Terrain.h
+#ifndef TERRAIN-H
+#define TERRAIN-H
 #pragma once
 #include<string>
 #include<iostream>

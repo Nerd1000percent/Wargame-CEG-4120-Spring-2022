@@ -1,6 +1,6 @@
 //Create a class Unit
-#ifndef Unit.h
-#define Unit.h
+#ifndef UNIT-H
+#define UNIT-H
 #pragma once
 #include<string>
 #include<iostream>

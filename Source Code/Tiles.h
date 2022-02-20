@@ -2,10 +2,11 @@
 #ifndef TILES-H
 #define TILES-H
 #pragma once
+#include "Unit.h"
 #include<string>
 #include<iostream>
 using namespace std;
-class Terrain {
+class Tiles {
 //Attributes
 private:
    int terrainClass;
@@ -22,6 +23,8 @@ public:
    //functions
    void addUnit();
    void removeUnit();
+   Unit* findUnit(); // return pointer of a given unitid
+
 
 };
 #endif

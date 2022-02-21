@@ -1,34 +1,31 @@
-//Create a class Unit
 #ifndef UNIT-H
 #define UNIT-H
 #pragma once
-#include<string>
-#include<iostream>
-using namespace std;
-class Unit {
-//Attributes
+
+#include <string>
+
+class Unit
+{
+
 private:
-   int attackPower;
-   int defensePower;
-   int movement;
-   int id;
-   int activeFlag;
 
-//Member functions
+   std::string m_ID;
+   bool m_active;
+   int m_numMoves;
+   double m_attackPower;
+   double m_defensePower;
+
 public:
-   //Constructor
-   Unit();
+   
+   Unit(std::string id, int numMoves, int attackPower, int defensePower);
 
-   //Getters
-   int attackPowerGetter();
-   int defensePowerGetter();
-   int movementGetter();
-   int idGetter():
-   int activeFlagGetter();
+   std::string getID():
+   bool isActive();
+   int getMovement();
+   double getAttackPower();
+   double getDefensePower();
 
-   //functions
-   int decreaseDefensePower();
-   int decreaseAttackPower();
+   void dealDamage(double damage);
 
 };
 #endif

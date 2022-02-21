@@ -1,36 +1,45 @@
-///Implementation of Unit
 #include "Unit.h"
-//Constructor
-Terrain::Terrain() {
-   this->attackPower = 0;
-   this->defensePower= 0;
-   this->movement=0;
-   this->id=0;
-   this->activeFlag=0;
-}
-//Getter
-int Unit::attackPowerGetter () {
-   return attackPower;
-}
-int Unit::defensePowerGetter() {
-   return defensePower;
-}
-int Unit::movementGetter() {
-   return defensePower;
-}
-int Unit::idGetter() {
-   return id;
-}
-int Unit::activeFlagGetter() {
-   return activeFlag;
+
+Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
+: m_ID{id}
+, m_numMoves{numMoves}
+, m_attackPower{attackPower}
+, m_defensePower{defensePower}
+{
+   m_active = true;
 }
 
-//functions
-
-int Unit::decreaseDefensePower(){
-//math
+std::string Unit::getID()
+{
+   return m_ID;
 }
 
-int Unit::decreaseAttackPower(){
-//math
+int Unit::isActive()
+{
+   return m_active;
+}
+
+int Unit::getMovement()
+{
+   return m_numMoves;
+}
+
+double Unit::getAttackPower ()
+{
+   return m_attackPower;
+}
+
+double Unit::getDefensePower()
+{
+   return m_defensePower;
+}
+
+// If this unit is attacking, damage is the ratio of enemy's defense power to this unit's attack power
+// If this unit is defending, damage is the ratio of enemy's attack power to this unit's defense power
+void Unit::dealDamage(double damage)
+{
+   m_attackPower -= damage;
+   m_defensePower -= damage;
+   if (attackPower <= 0 || defensePower <= 0)
+      m_active = False; 
 }

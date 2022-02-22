@@ -7,6 +7,16 @@ Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
 , m_defensePower{defensePower}
 {
    m_active = true;
+   m_engagementList;
+}
+
+Unit::Unit(Unit& other)
+{
+    m_ID = other.getID();
+    m_active = other.isActive();
+    m_numMoves = other.getMovement();
+    m_attackPower = other.getAttackPower();
+    m_defensePower = other.getDefensePower();
 }
 
 std::string Unit::getID()
@@ -14,7 +24,7 @@ std::string Unit::getID()
    return m_ID;
 }
 
-int Unit::isActive()
+bool Unit::isActive()
 {
    return m_active;
 }
@@ -42,4 +52,23 @@ void Unit::dealDamage(double damage)
    m_defensePower -= damage;
    if (attackPower <= 0 || defensePower <= 0)
       m_active = False; 
+}
+
+void Unit::engageUnit(std::unique_ptr<Unit> enemy)
+{
+   m_engagementList.push_back(enemy);
+}
+
+// Remove a specific unit from the engagement list
+void Unit::disengageUnit(std::string unitID)
+{
+   for (auto it = m_engagementList.begin() ; it != m_engagementList.end(); ++it)
+   {
+       auto unit = *it;
+       if (unit->getID() == unitID)
+       {
+           m_engagementList.erase(it);
+           break;
+       }
+   }
 }

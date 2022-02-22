@@ -13,10 +13,10 @@ int Tiles::terrainClassGetter () {
 int Tiles::allOfUnitClassesGetter () {
    return allOfUnitClasses;
 }
-
+//test
 //functions data types to be changed accordingly.
  void Tiles::addUnit() {
-
+ Unit->m_ID()
 }
 
 void Tiles::removeUnit(){

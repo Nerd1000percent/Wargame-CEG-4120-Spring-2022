@@ -21,7 +21,8 @@ public:
    int allOfUnitClassesGetter();
 
    //functions
-   void addUnit();
+   void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
+   void addUnit(Unit &New);
    void removeUnit();
    Unit* findUnit(); // return pointer of a given unitid
 

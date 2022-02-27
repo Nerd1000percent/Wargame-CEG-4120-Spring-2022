@@ -3,27 +3,28 @@
 #define TILES-H
 #pragma once
 #include "Unit.h"
+#include "Terrain.h"
 #include<string>
 #include<iostream>
 using namespace std;
 class Tiles {
 //Attributes
 private:
-   int terrainClass;
-   int allOfUnitClasses;
+   Terrain terrainClass;
+   list<Unit> allOfUnitClasses;
 //Member functions
 public:
    //Constructor
    Tiles();
 
    //Getters
-   int terrainClassGetter();
-   int allOfUnitClassesGetter();
+   Terrain terrainClassGetter();
+   list<Unit> allOfUnitClassesGetter();
 
    //functions
    void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
    void addUnit(Unit &New);
-   void removeUnit();
+   void removeUnit(Unit &Remove);
    Unit* findUnit(); // return pointer of a given unitid
 
 

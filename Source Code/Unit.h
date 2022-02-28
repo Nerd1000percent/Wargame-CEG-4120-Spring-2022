@@ -16,6 +16,7 @@ private:
    int m_numMoves;
    double m_attackPower;
    double m_defensePower;
+   int m_currentMoves; // To decrease as a unit moves around the map
    std::vector<std::unique_ptr<Unit>> m_engagementList;
 
 public:
@@ -28,10 +29,15 @@ public:
    int getMovement();
    double getAttackPower();
    double getDefensePower();
+   int getCurrentMovement();
 
    void dealDamage(double damage);
    void engageUnit(std::unique_ptr<Unit> enemy);
    void disengageUnit(std::string unitID);
+   void spendMovement(int cost);
+   void printUnit();
+   void resetMovement();
+
 
 };
 #endif

@@ -17,6 +17,7 @@ Unit::Unit(Unit& other)
     m_numMoves = other.getMovement();
     m_attackPower = other.getAttackPower();
     m_defensePower = other.getDefensePower();
+    m_currentMoves = m_numMoves;
 }
 
 std::string Unit::getID()
@@ -71,4 +72,21 @@ void Unit::disengageUnit(std::string unitID)
            break;
        }
    }
+}
+
+void Unit::spendMovement(int cost){
+   m_currentMoves -= cost;
+}
+
+void Unit::resetMovement(){
+   m_currentMoves = m_numMoves;
+}
+
+void Unit::printUnit(){
+   cout << "\nID: " << m_ID;
+   cout << "\nBase Movement Range: " << m_numMoves;
+   cout << "\nAvailable Movement Range: " << m_currentMoves;
+   cout << "\nAttack Power: " << m_attackPower;
+   cout << "\nDefense Power: " << m_defensePower << "\n";
+
 }

@@ -19,5 +19,7 @@ public:
    string nameGetter();
    int movementCostGetter();
 
+   void printTerrain();
+
 };
 #endif

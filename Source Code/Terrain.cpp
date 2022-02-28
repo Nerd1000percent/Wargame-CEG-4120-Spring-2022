@@ -13,4 +13,9 @@ int Terrain::movementCostGetter() {
    return movementCost;
 }
 
+void Terrain::printTerrain() {
+   cout << "\nName: " << name;
+   cout << "\nMovement Cost: " << movementCost; 
+}
+
 

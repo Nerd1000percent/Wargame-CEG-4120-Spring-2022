@@ -26,13 +26,15 @@ list<Unit> Tiles::allOfUnitClassesGetter () {
  void Tiles::addUnit(Unit &New) { 
     
 
-   Unit(&New); // I think this is how you call the pointer constrctor in the Unit class,.
+   Unit(&New); // I think this is how you call the pointer constrctor in the Unit class,
+               //I will look into this and further change it. 
 
 }
 
 void Tiles::removeUnit(Unit &Remove){
 
-   allOfUnitClasses.remove(Remove);
+   allOfUnitClasses.remove(Remove); //this is just an Idea, we will have to have over loaded 
+                                    //functions to remove the unit just like how we added it.
 
 
 }

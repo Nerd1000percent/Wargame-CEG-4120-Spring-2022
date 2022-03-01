@@ -2,6 +2,8 @@
 #include "Tiles.h"
 #include "Unit.h"
 #include "Map.h"
+#include <algorithm>
+#include <istream>
 //Constructor
 Tiles::Tiles() {
    this->terrainClass;
@@ -37,4 +39,19 @@ void Tiles::removeUnit(Unit &Remove){
                                     //functions to remove the unit just like how we added it.
 
 
+}
+void Tiles::listUnit(){
+    for (auto const &i: allOfUnitClasses) {
+        std::cout <<i<< std::endl;
+    }// this all views the list in linear form, changes to come later.
+}
+//searchs the list of Units loking for element
+Unit Tiles::findUnit(Unit find){ //Im not sue how to get the ID at this point, might need defualt const in Unit.cpp so we can access geId
+   std::list<Unit>::iterator it;
+  it = std::find (allOfUnitClasses.begin(), allOfUnitClasses.end(), find);
+    if (it != allOfUnitClasses.end()){
+       return find;
+    }else{
+        return NULL;
+    }
 }

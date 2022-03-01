@@ -89,5 +89,4 @@ void Unit::printUnit(){
    cout << "\nAvailable Movement Range: " << m_currentMoves;
    cout << "\nAttack Power: " << m_attackPower;
    cout << "\nDefense Power: " << m_defensePower << "\n";
-
 }

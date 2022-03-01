@@ -11,7 +11,7 @@ class Tiles {
 //Attributes
 private:
    Terrain terrainClass;
-   list<Unit> allOfUnitClasses;
+   std::list<Unit> allOfUnitClasses;
 //Member functions
 public:
    //Constructor
@@ -25,8 +25,7 @@ public:
    void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
    void addUnit(Unit &New);
    void removeUnit(Unit &Remove);
-   Unit* findUnit(); // return pointer of a given unitid
-
-
+   Unit findUnit(int find); // return pointer of a given unitid
+   void listUnit();
 };
 #endif

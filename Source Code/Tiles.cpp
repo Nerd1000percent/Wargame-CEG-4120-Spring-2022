@@ -35,9 +35,7 @@ list<Unit> Tiles::allOfUnitClassesGetter () {
 
 void Tiles::removeUnit(Unit &Remove){
 
-   allOfUnitClasses.remove(Remove); //this is just an Idea, we will have to have over loaded 
-                                    //functions to remove the unit just like how we added it.
-
+   Unit(&Remove, false);
 
 }
 void Tiles::listUnit(){

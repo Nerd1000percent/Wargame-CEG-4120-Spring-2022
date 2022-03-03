@@ -20,6 +20,15 @@ Unit::Unit(Unit& other)
     m_defensePower = other.getDefensePower();
 }
 
+Unit::Unit(Unit& destroyedUnit, bool m_active)
+{
+   destroyedUnit.m_ID = "";
+   destroyedUnit.m_active = m_active;
+   destroyedUnit.m_numMoves = 0;
+   destroyedUnit.m_attackPower = 0.0;
+   destroyedUnit.m_defensePower = 0.0;
+}
+
 std::string Unit::getID()
 {
    return m_ID;

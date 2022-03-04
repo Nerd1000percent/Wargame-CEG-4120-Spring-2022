@@ -5,6 +5,11 @@ Terrain::Terrain() {
    this->name = "";
    this->movementCost= 0;
 }
+
+Terrain::Terrain(string name, int cost) {
+   this->name = name;
+   this->movementCost = cost;
+}
 //Getter
 string Terrain::nameGetter () {
    return name;

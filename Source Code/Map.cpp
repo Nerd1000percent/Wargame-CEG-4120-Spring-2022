@@ -9,6 +9,12 @@ Map::Map() {
 	this->engagedList = 0;
 }
 
+Map::Map(int dim) {
+	this->mapDimension = dim;
+	this->arrayOfTiles[dim][dim];
+	this->engagedList;
+}
+
 Map::Map(Map clone) {
    
 }
@@ -25,13 +31,14 @@ void Map::saveState(istream log) {
 // pre:: given unit id, location, and destination.  post:: unit is removed from location and added to destination, if the unit has the movement points and does not pass through any enemy adjacent tiles
 int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2]) {
 	//TODO logging
-	Unit* unit = arrayOfTiles[locCoords[0]][locCoords[1]]->getUnit(unitId); //not sure if this is how it needs to be called
+	Unit* unit = arrayOfTiles[locCoords[0]][locCoords[1]]->findUnit(unitId); //not sure if this is how it needs to be called
 	if (unit = 0) return 0;
 
-	std::array<int, 4> locCoordsCopy = locCoords; //copy array A into array B
+	std::array<int, 2> locCoordsCopy = locCoords; //copy array A into array B
 
 	if (checkPath(unit, locCoords, destinationCoords)) {
-		arrayOfTiles[locCoordsCopy[0], [locCoordsCopy[1]]->removeUnit(unitId); // not sure if this is how it needs to be called
+		arrayOfTiles[destinationCoords[0]][destinationCoords[1]]->addUnit(unit);
+		arrayOfTiles[locCoordsCopy[0]][locCoordsCopy[1]]->removeUnit(unit); // not sure if this is how it needs to be called
 	}
 }
 // pre:: given unit pointer and location/destination coords post:: check for sufficient movement and that will not enter hostile adjacent tile then will move unit to new tile
@@ -84,16 +91,21 @@ bool Map::checkPath(Unit* unit, int locCoords[2], int destinationCoords[2]) {
 		}
 		c++;
 	}
-	
-	return 1;
 
+	return 1;
 }
+
+
 
 //pre:: coords are given.  post;: iterate through all surrounding tiles checking for enemies, return true if enemies are found
 bool Map::hostileCheck(int coords[2]) {
 	// TODO
 	// hardcoding to false for now.
 	return false;
+}
+
+void Map::addTile(string terrainName, int terrainCost, int xCoord, int yCoord) {
+	arrayOfTiles[xCoord][yCoord] = new Tiles(terrainName, terrainCost); 
 }
 
 

@@ -19,10 +19,12 @@ public:
    //Constructor
    Map();
    Map(const Map clone);
+   Map(int dim, )
    //Getters
    int arrayOfTilesGetter();
    void saveState(istream log);
    void moveUnit(string unitId, int locCoords[2], int destinationCoords[2]);
+   void addTile(string terrainName, int terrainCost, int xCoord, int yCoord);
    //TODO void resolveCombat();
    //TODO void findEgnagedUnits();
 private:

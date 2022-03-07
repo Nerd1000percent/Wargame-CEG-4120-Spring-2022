@@ -3,7 +3,7 @@
 #include "Unit.h"
 #include "Map.h"
 #include <algorithm> // what makes this needed?
-#include <istream>
+#include <iostream>
 //Constructor
 Tiles::Tiles() {
    this->terrainClass;
@@ -44,7 +44,7 @@ void Tiles::removeUnit(Unit &Remove){
 }
 void Tiles::listUnit(){
     for (auto const &i: allOfUnitClasses) {
-        //std::cout <<i<< std::endl; I don't know why this is erroring
+        std::cout <<i<< std::endl; //I don't know why this is erroring
     }// this all views the list in linear form, changes to come later.
 }
 //searchs the list of Units loking for element

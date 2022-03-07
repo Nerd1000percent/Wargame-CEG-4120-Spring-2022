@@ -66,7 +66,7 @@ void Unit::disengageUnit(std::string unitID)
 {
    for (auto it = m_engagementList.begin() ; it != m_engagementList.end(); ++it)
    {
-       auto unit = *it;
+       auto &unit = *it;
        if (unit->getID() == unitID)
        {
            m_engagementList.erase(it);

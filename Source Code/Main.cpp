@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
 
-//main code goes her
+//main code goes here
 
 
 return 0;

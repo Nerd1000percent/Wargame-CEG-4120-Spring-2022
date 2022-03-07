@@ -1,4 +1,8 @@
 #include "Unit.h"
+<<<<<<< Updated upstream
+=======
+#include <string>
+>>>>>>> Stashed changes
 #include <iostream>
 
 Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)

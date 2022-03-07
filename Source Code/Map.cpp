@@ -5,8 +5,13 @@
 //Constructor
 Map::Map() {
 	this->mapDimension = 0;
+<<<<<<< Updated upstream
 	this->arrayOfTiles;
 	this->engagedUnits;
+=======
+	this->arrayOfTiles = 0;
+	this->engagedUnits = 0;
+>>>>>>> Stashed changes
 }
 
 Map::Map(int dim) {
@@ -37,8 +42,13 @@ int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2]) {
 	std::array<int, 2> locCoordsCopy = locCoords; //copy array A into array B
 
 	if (checkPath(unit, locCoords, destinationCoords)) {
+<<<<<<< Updated upstream
 		arrayOfTiles[destinationCoords[0]][destinationCoords[1]].addUnit(*unit); // TODO overload this to call copy constructor
 		arrayOfTiles[locCoords[0]][locCoords[1]].removeUnit(*unit); // not sure if this is how it needs to be called
+=======
+		arrayOfTiles[destinationCoords[0]][destinationCoords[1]]->addUnit(unit);
+		arrayOfTiles[locCoords[0]][locCoords[1]]->removeUnit(unit); // not sure if this is how it needs to be called
+>>>>>>> Stashed changes
 	}
 }
 // pre:: given unit pointer and location/destination coords post:: check for sufficient movement and that will not enter hostile adjacent tile then will move unit to new tile

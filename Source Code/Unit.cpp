@@ -1,5 +1,5 @@
 #include "Unit.h"
-
+#include <iostream>
 
 Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
 : m_ID{id}
@@ -52,8 +52,8 @@ void Unit::dealDamage(double damage)
 {
    m_attackPower -= damage;
    m_defensePower -= damage;
-   if (attackPower <= 0 || defensePower <= 0)
-      m_active = False; 
+   if (m_attackPower <= 0 || m_defensePower <= 0)
+      m_active = false; 
 }
 
 void Unit::engageUnit(std::unique_ptr<Unit> enemy)
@@ -84,9 +84,9 @@ void Unit::resetMovement(){
 }
 
 void Unit::printUnit(){
-   cout << "\nID: " << m_ID;
-   cout << "\nBase Movement Range: " << m_numMoves;
-   cout << "\nAvailable Movement Range: " << m_currentMoves;
-   cout << "\nAttack Power: " << m_attackPower;
-   cout << "\nDefense Power: " << m_defensePower << "\n";
+   std::cout << "\nID: " << m_ID;
+   std::cout << "\nBase Movement Range: " << m_numMoves;
+   std::cout << "\nAvailable Movement Range: " << m_currentMoves;
+   std::cout << "\nAttack Power: " << m_attackPower;
+   std::cout << "\nDefense Power: " << m_defensePower << "\n";
 }

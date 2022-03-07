@@ -11,7 +11,7 @@ Tiles::Tiles() {
 }
 
 Tiles::Tiles(string terrainName, int terrainCost) {
-   this->terrainClass = new Terrain(terrainName, terrainCost);
+   this->terrainClass = Terrain(terrainName, terrainCost);
 }
 
 //Getters, data types are to be changed
@@ -31,7 +31,7 @@ list<Unit> Tiles::allOfUnitClassesGetter () {
 }
 //Overloaded funtion for the pointer const in the Unit class. 
  void Tiles::addUnit(Unit &New) { 
-   Unit(&New); // I think this is how you call the pointer constrctor in the Unit class,
+   Unit(*New); // I think this is how you call the pointer constrctor in the Unit class,
                //I will look into this and further change it. 
 }
 
@@ -44,7 +44,7 @@ void Tiles::removeUnit(Unit &Remove){
 }
 void Tiles::listUnit(){
     for (auto const &i: allOfUnitClasses) {
-        std::cout <<i<< std::endl;
+        //std::cout <<i<< std::endl; I don't know why this is erroring
     }// this all views the list in linear form, changes to come later.
 }
 //searchs the list of Units loking for element
@@ -59,7 +59,7 @@ void Tiles::listUnit(){
 // }
 
 Unit* Tiles::findUnit(string find){
-   for (auto const& it : allOfUnitClasses)
-      if (it.getId().compare(find)) return *it;
+   for (auto it : allOfUnitClasses)
+      if (it.getID().compare(find)) return &it;
    return NULL; //returning NULL if not found so that Map can know
 }

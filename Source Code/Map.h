@@ -7,23 +7,24 @@
 #include<list>
 #include<string>
 #include<iostream>
+#include<vector>
 using namespace std;
 class Map {
 //Attributes
 private:
-   Tiles arrayOfTiles[][];
    int mapDimension;
+   vector<vector<Tiles>> arrayOfTiles;
    list<Unit*> engagedUnits;
 //Member functions
 public:
    //Constructor
    Map();
-   Map(const Map clone);
-   Map(int dim, )
+   Map(const Map* clone);
+   Map(int dim);
    //Getters
-   int arrayOfTilesGetter();
+   vector<vector<Tiles>> arrayOfTilesGetter();
    void saveState(istream log);
-   void moveUnit(string unitId, int locCoords[2], int destinationCoords[2]);
+   int moveUnit(string unitId, int locCoords[2], int destinationCoords[2]);
    void addTile(string terrainName, int terrainCost, int xCoord, int yCoord);
    //TODO void resolveCombat();
    //TODO void findEgnagedUnits();

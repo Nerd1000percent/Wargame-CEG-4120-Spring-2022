@@ -22,7 +22,7 @@ void readGameState(){
     ifstream MyReadFile ("gameStateFile.txt");
     while (std::getline (MyReadFile, myfile)) {
   // Output the text from the file
-    cout << ;
+    cout <<"Load the saved copy of map and read from it for the rest of this game session";
     MyReadFile.close();
 }
 

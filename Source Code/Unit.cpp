@@ -1,6 +1,8 @@
 #include "Unit.h"
 
+
 #include <string>
+
 #include <iostream>
 
 Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
@@ -68,7 +70,7 @@ void Unit::disengageUnit(std::string unitID)
 {
    for (auto it = m_engagementList.begin() ; it != m_engagementList.end(); ++it)
    {
-       auto &unit = *it;
+       auto unit = it;
        if (unit->getID() == unitID)
        {
            m_engagementList.erase(it);

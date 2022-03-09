@@ -1,6 +1,5 @@
-#ifndef UNIT-H
-#define UNIT-H
-#pragma once
+#ifndef UNIT_H
+#define UNIT_H
 
 #include <string>
 #include <vector>
@@ -8,7 +7,6 @@
 
 class Unit
 {
-
 private:
 
    std::string m_ID;
@@ -17,14 +15,13 @@ private:
    double m_attackPower;
    double m_defensePower;
    int m_currentMoves; // To decrease as a unit moves around the map
-   std::vector<std::unique_ptr<Unit>> m_engagementList;
-
+   std::vector<std::shared_ptr<Unit>> m_engagementList;
 public:
    
    Unit(std::string id, int numMoves, int attackPower, int defensePower);
    Unit(Unit& other);
 
-   std::string getID():
+   std::string getID();
    bool isActive();
    int getMovement();
    double getAttackPower();
@@ -37,7 +34,5 @@ public:
    void spendMovement(int cost);
    void printUnit();
    void resetMovement();
-
-
 };
 #endif

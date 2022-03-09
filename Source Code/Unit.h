@@ -7,7 +7,6 @@
 
 class Unit
 {
-
 private:
 
    std::string m_ID;
@@ -16,8 +15,7 @@ private:
    double m_attackPower;
    double m_defensePower;
    int m_currentMoves; // To decrease as a unit moves around the map
-   std::vector<std::unique_ptr<Unit>> m_engagementList;
-
+   std::vector<std::shared_ptr<Unit>> m_engagementList;
 public:
    
    Unit(std::string id, int numMoves, int attackPower, int defensePower);
@@ -36,7 +34,5 @@ public:
    void spendMovement(int cost);
    void printUnit();
    void resetMovement();
-
-
 };
 #endif

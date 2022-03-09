@@ -3,17 +3,18 @@
 #define TILES_H
 
 #include <string>
+#include <memory>
 #include <iostream>
 #include <list>
 
-#include "Unit.h"
-#include "Terrain.h"
+class Unit;
+class Terrain;
 
 class Tiles {
 //Attributes
 private:
-   Terrain terrainClass;
-   std::list<Unit> allOfUnitClasses;
+    std::shared_ptr<Terrain> terrainClass;
+   std::list<std::shared_ptr<Unit>> allOfUnitClasses;
 //Member functions
 public:
    //Constructor
@@ -21,13 +22,13 @@ public:
    Tiles(std::string terrainName, int terrainCost);
 
    //Getters
-   Terrain terrainClassGetter();
+   std::shared_ptr<Terrain> terrainClassGetter();
    std::list<Unit> allOfUnitClassesGetter();
 
    //functions
    void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
-   void addUnit(Unit &New);
-   void removeUnit(Unit &Remove);
+   void addUnit(std::shared_ptr<Unit> New);
+   void removeUnit(std::shared_ptr<Unit> Remove);
    Unit* findUnit(std::string find); // return pointer of a given unitid
    void listUnit();
 };

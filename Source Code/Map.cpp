@@ -1,23 +1,24 @@
 ///Implementation of Map
-#include "MAP.h"
-#include "UNIT.h"
+#include "Map.h"
+#include "Unit.h"
+
 #include <list>
+#include <array>
+
 //Constructor
 Map::Map() {
 	this->mapDimension = 0;
-<<<<<<< Updated upstream
-	this->arrayOfTiles;
-	this->engagedUnits;
-=======
-	this->arrayOfTiles = 0;
-	this->engagedUnits = 0;
->>>>>>> Stashed changes
 }
 
 Map::Map(int dim) {
 	this->mapDimension = dim;
-	this->arrayOfTiles[dim][dim];
-	this->engagedUnits;
+	
+	// initialize 2d vector
+	arrayOfTiles.clear();
+	for (int i = 0; i < dim; i++)
+	{
+		arrayOfTiles.push_back(vector<Tiles>(dim));
+	}
 }
 
 Map::Map(const Map* clone) {
@@ -34,23 +35,26 @@ void Map::saveState(istream log) {
 
 // Move unit tile to tile
 // pre:: given unit id, location, and destination.  post:: unit is removed from location and added to destination, if the unit has the movement points and does not pass through any enemy adjacent tiles
-int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2]) {
+int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2])
+{
 	//TODO logging
 	Unit* unit = arrayOfTiles[locCoords[0]][locCoords[1]].findUnit(unitId); //not sure if this is how it needs to be called
-	if (unit = 0) return 0;
+	if (unit == 0) return 0;
 
-	std::array<int, 2> locCoordsCopy = locCoords; //copy array A into array B
+	//std::array<int, 2> locCoordsCopy = locCoords; //copy array A into array B
+	std::array<int, 2> locCoordsCopy = {locCoords[0], locCoords[1]};
+
+	//if (checkPath(unit, locCoords, destinationCoords)) {
+	//	arrayOfTiles[destinationCoords[0]][destinationCoords[1]].addUnit(unit);
+	//	arrayOfTiles[locCoords[0]][locCoords[1]]->removeUnit(unit); // not sure if this is how it needs to be called
+	//}
 
 	if (checkPath(unit, locCoords, destinationCoords)) {
-<<<<<<< Updated upstream
 		arrayOfTiles[destinationCoords[0]][destinationCoords[1]].addUnit(*unit); // TODO overload this to call copy constructor
 		arrayOfTiles[locCoords[0]][locCoords[1]].removeUnit(*unit); // not sure if this is how it needs to be called
-=======
-		arrayOfTiles[destinationCoords[0]][destinationCoords[1]]->addUnit(unit);
-		arrayOfTiles[locCoords[0]][locCoords[1]]->removeUnit(unit); // not sure if this is how it needs to be called
->>>>>>> Stashed changes
 	}
 }
+
 // pre:: given unit pointer and location/destination coords post:: check for sufficient movement and that will not enter hostile adjacent tile then will move unit to new tile
 // Limitation: currently there could be a move that is possible that it does not like because of how it paths.  In these instances you may need to make smaller movements yourself.  Will come back to it if I can.
 // TODO change for current and base move

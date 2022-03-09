@@ -1,4 +1,8 @@
 #include "Unit.h"
+
+
+#include <string>
+
 #include <iostream>
 
 Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)

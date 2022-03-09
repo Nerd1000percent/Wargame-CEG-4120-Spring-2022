@@ -1,9 +1,10 @@
-///Implementation of Terrain
 #include "Terrain.h"
-//Constructor
+
+using namespace std;
+
 Terrain::Terrain() {
    this->name = "";
-   this->movementCost= 0;
+   this->movementCost = 0;
 }
 
 Terrain::Terrain(string name, int cost) {
@@ -22,5 +23,3 @@ void Terrain::printTerrain() {
    cout << "\nName: " << name;
    cout << "\nMovement Cost: " << movementCost; 
 }
-
-

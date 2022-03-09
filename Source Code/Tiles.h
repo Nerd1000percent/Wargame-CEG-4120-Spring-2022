@@ -1,32 +1,35 @@
 //Create a class Tiles
-#ifndef TILES-H
-#define TILES-H
-#pragma once
-#include "Unit.h"
-#include "Terrain.h"
-#include<string>
-#include<iostream>
-using namespace std;
+#ifndef TILES_H
+#define TILES_H
+
+#include <string>
+#include <memory>
+#include <iostream>
+#include <list>
+
+class Unit;
+class Terrain;
+
 class Tiles {
 //Attributes
 private:
-   Terrain terrainClass;
-   list<Unit> allOfUnitClasses;
+    std::shared_ptr<Terrain> terrainClass;
+   std::list<std::shared_ptr<Unit>> allOfUnitClasses;
 //Member functions
 public:
    //Constructor
    Tiles();
-   Tiles(string terrainName, int terrainCost);
+   Tiles(std::string terrainName, int terrainCost);
 
    //Getters
-   Terrain terrainClassGetter();
-   list<Unit> allOfUnitClassesGetter();
+   std::shared_ptr<Terrain> terrainClassGetter();
+   std::list<Unit> allOfUnitClassesGetter();
 
    //functions
    void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
-   void addUnit(Unit &New);
-   void removeUnit(Unit &Remove);
-   Unit* findUnit(string find); // return pointer of a given unitid
+   void addUnit(std::shared_ptr<Unit> New);
+   void removeUnit(std::shared_ptr<Unit> Remove);
+   Unit* findUnit(std::string find); // return pointer of a given unitid
    void listUnit();
 };
 #endif

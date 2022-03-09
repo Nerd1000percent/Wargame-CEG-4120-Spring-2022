@@ -1,25 +1,24 @@
-//Create a class Terrain
-#ifndef TERRAIN-H
-#define TERRAIN-H
-#pragma once
-#include<string>
-#include<iostream>
-using namespace std;
+#ifndef TERRAIN_H
+#define TERRAIN_H
+
+#include <string>
+#include <iostream>
+
 class Terrain {
-//Attributes
+
 private:
-   string name;
+   std::string name;
    int movementCost;
-//Member functions
+
 public:
-   //Constructor
    Terrain();
-   Terrain(string name, int movementCost);
-   //Getters
-   string nameGetter();
+   Terrain(std::string name, int movementCost);
+
+   std::string nameGetter();
    int movementCostGetter();
 
    void printTerrain();
 
 };
+
 #endif

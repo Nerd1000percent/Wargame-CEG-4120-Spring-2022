@@ -1,6 +1,6 @@
 //Create a class Map
-#ifndef MAP-H
-#define MAP-H
+#ifndef MAP_H
+#define MAP_H
 #pragma once
 #include "Unit.h"
 #include "Tiles.h"

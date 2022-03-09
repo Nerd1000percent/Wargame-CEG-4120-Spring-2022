@@ -1,6 +1,5 @@
-#ifndef UNIT-H
-#define UNIT-H
-#pragma once
+#ifndef UNIT_H
+#define UNIT_H
 
 #include <string>
 #include <vector>

@@ -26,6 +26,7 @@ public:
    void saveState(istream log);
    int moveUnit(string unitId, int locCoords[2], int destinationCoords[2]);
    void addTile(string terrainName, int terrainCost, int xCoord, int yCoord);
+   void saveGameState();
    //TODO void resolveCombat();
    //TODO void findEgnagedUnits();
 private:

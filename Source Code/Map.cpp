@@ -60,37 +60,50 @@ list<Coordinates> listOfHostiles = new list<>();
 			if(arrayofTiles[r][c]->getFlag() != enemies){
 				engagedUnits->insert(arrayOfTiles[r][c]->getUnit());
 
+				// now looking for hostiles
 				auto leftValid = false, rightValid = false;
 
 				if(c - 1 >= 0) {
 					leftValid = true;
-					listOfHostiles.insert(new Coordinates (r, c - 1));
+					if(arrayofTiles[r][c - 1]->getFlag() == enemies) {
+						listOfHostiles.insert(new Coordinates (r, c - 1));
+					}
 				}
 
 				if(c + 1 < mapDimension) {
 					rightValid = true; 
-					listOfHostiles.insert(new Coordinates (r, c + 1));
+					if(arrayofTiles[r][c + 1]->getFlag() == enemies) {
+					 	listOfHostiles.insert(new Coordinates (r, c + 1));
+					}
 				}
-
-				// Now looking for hostiles
 				if(r - 1 >= 0) {
 					if(arrayOfTiles[r - 1][c]->getFlag() == enemies) {
 						listOfHostiles.insert(new Coordinates (r - 1, c));
 					}
 					if(leftValid) {
-						listOfHostiles.insert(new Coordinates (r - 1, c - 1));
+						if(arrayofTiles[r - 1][c - 1]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates (r - 1, c - 1));
+						}
 					}
 					if(rightValid) {
-						listOfHostiles.insert(new Coordinates (r - 1, c + 1));
+						if(arrayofTiles[r - 1][c + 1]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates (r - 1, c + 1));
+						}
 					}
 				}
 				if(r + 1 < mapDimension) {
-						listOfHostiles.insert(new Coordinates(r + 1, c));
+						if(arrayofTiles[r + 1][c]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates(r + 1, c));
+						}
 					if(leftValid) {
-						listOfHostiles.insert(new Coordinates (r + 1, c - 1));
+						if(arrayofTiles[r + 1][c - 1]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates (r + 1, c - 1));
+						}
 					}
 					if(rightValid) {
-						listOfHostiles.insert(new Coordinates (r + 1, c + 1));
+						if(arrayofTiles[r + 1][c + 1]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates (r + 1, c + 1));
+						}
 					}
 				}
 			}

@@ -24,7 +24,7 @@ public:
    void saveState(istream log);
    void moveUnit(string unitId, int locCoords[2], int destinationCoords[2]);
    //TODO void resolveCombat();
-   //TODO void findEgnagedUnits();
+   void findEngagedUnits();
 private:
 	bool hostileCheck(int coords[2]);
 	bool checkPath(Unit* unit, int locCoords[2], int destinationCoords[2]);

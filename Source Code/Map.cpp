@@ -6,7 +6,8 @@
 Map::Map() {
 	this->arrayOfTiles[][] = 0;
 	this->mapDimension = 0;
-	this->engagedList = 0;
+	this->engagedUnits = {};
+	
 }
 
 Map::Map(Map clone) {
@@ -34,6 +35,30 @@ int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2]) {
 		arrayOfTiles[locCoordsCopy[0], [locCoordsCopy[1]]->removeUnit(unitId); // not sure if this is how it needs to be called
 	}
 }
+
+/** Interates through all tiles to see who is engaged, includes player movement and hostile movement.
+ *  I know normally the for loops start off as 1, but I wanted to keep the tile dimensions to be human readable.
+ */
+void Map::findEngagedUnits() {
+
+	// Find all engaged units first
+	for(auto r = 1; r <= mapDimension; r++) {
+		for(auto c = 1; c <= mapDimension; c++) {
+			if(arrayofTiles[r][c]->getUnit()[0] == "B"){
+				engagedUnits->insert(arrayOfTiles[r][c]->getUnit());
+
+				if(r < 1) {
+					if(arrayOfTiles[r-1][c]->getUnit()[0] == "R") {
+								
+					}
+				}
+			}
+		}
+	}
+
+	
+}
+
 // pre:: given unit pointer and location/destination coords post:: check for sufficient movement and that will not enter hostile adjacent tile then will move unit to new tile
 // Limitation: currently there could be a move that is possible that it does not like because of how it paths.  In these instances you may need to make smaller movements yourself.  Will come back to it if I can.
 // TODO change for current and base move

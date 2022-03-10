@@ -1,7 +1,9 @@
 ///Implementation of Map
 #include "MAP.h"
 #include "UNIT.h"
+#include "Coordinates.h"
 #include <list>
+using namespace std;
 //Constructor
 Map::Map() {
 	this->arrayOfTiles[][] = 0;
@@ -11,7 +13,7 @@ Map::Map() {
 }
 
 Map::Map(Map clone) {
-   
+   //TODO:clone the map
 }
 //Getter
 int Map::arrayOfTilesGetter () {
@@ -36,20 +38,59 @@ int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2]) {
 	}
 }
 
-/** Interates through all tiles to see who is engaged, includes player movement and hostile movement.
- *  I know normally the for loops start off as 1, but I wanted to keep the tile dimensions to be human readable.
+/** Interates through all tiles to see who is engaged. Will return a list of coordinates of hostiles within range of attack
  */
-void Map::findEngagedUnits() {
+list<Coordinates> Map::getEngagedUnits() {
+
+
+	auto enemies = false;
+	if (enemeies == unit->getFlag()) {
+		enemmies = true;
+	}
+
+	// TODO: find a way to distinquish between both roles if a player switches colors
+list<Coordinates> listOfHostiles = new list<>();
 
 	// Find all engaged units first
-	for(auto r = 1; r <= mapDimension; r++) {
-		for(auto c = 1; c <= mapDimension; c++) {
-			if(arrayofTiles[r][c]->getUnit()[0] == "B"){
+	for(auto r = 0; r < mapDimension; r++) {
+		for(auto c = 0; c < mapDimension; c++) {
+
+
+			// player's pieces
+			if(arrayofTiles[r][c]->getFlag() != enemies){
 				engagedUnits->insert(arrayOfTiles[r][c]->getUnit());
 
-				if(r < 1) {
-					if(arrayOfTiles[r-1][c]->getUnit()[0] == "R") {
-								
+				auto leftValid = false, rightValid = false;
+
+				if(c - 1 >= 0) {
+					leftValid = true;
+					listOfHostiles.insert(new Coordinates (r, c - 1));
+				}
+
+				if(c + 1 < mapDimension) {
+					rightValid = true; 
+					listOfHostiles.insert(new Coordinates (r, c + 1));
+				}
+
+				// Now looking for hostiles
+				if(r - 1 >= 0) {
+					if(arrayOfTiles[r - 1][c]->getFlag() == enemies) {
+						listOfHostiles.insert(new Coordinates (r - 1, c));
+					}
+					if(leftValid) {
+						listOfHostiles.insert(new Coordinates (r - 1, c - 1));
+					}
+					if(rightValid) {
+						listOfHostiles.insert(new Coordinates (r - 1, c + 1));
+					}
+				}
+				if(r + 1 < mapDimension) {
+						listOfHostiles.insert(new Coordinates(r + 1, c));
+					if(leftValid) {
+						listOfHostiles.insert(new Coordinates (r + 1, c - 1));
+					}
+					if(rightValid) {
+						listOfHostiles.insert(new Coordinates (r + 1, c + 1));
 					}
 				}
 			}

@@ -4,16 +4,16 @@
 #pragma once
 #include "Unit.h"
 #include "Tiles.h"
+#include"Coordinates.h"
 #include<list>
 #include<string>
 #include<iostream>
-using namespace std;
 class Map {
 //Attributes
 private:
    Tiles arrayOfTiles[][];
-   int mapDimension;
-   list<Unit*> engagedUnits;
+   auto mapDimension;
+   list<Coordinates> engagedUnits;
 //Member functions
 public:
    //Constructor
@@ -22,9 +22,9 @@ public:
    //Getters
    int arrayOfTilesGetter();
    void saveState(istream log);
-   void moveUnit(string unitId, int locCoords[2], int destinationCoords[2]);
+   void moveUnit(string unitId, auto locCoords[2], auto destinationCoords[2]);
    //TODO void resolveCombat();
-   void findEngagedUnits();
+   list<Coordinates> getEngagedUnits();
 private:
 	bool hostileCheck(int coords[2]);
 	bool checkPath(Unit* unit, int locCoords[2], int destinationCoords[2]);

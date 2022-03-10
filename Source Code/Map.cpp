@@ -1,9 +1,11 @@
 ///Implementation of Map
 #include "Map.h"
 #include "Unit.h"
-
+#include <json/json.h>
 #include <list>
 #include <array>
+#include <fstream>
+#include <string>
 
 //Constructor
 Map::Map() {
@@ -32,6 +34,31 @@ vector<vector<Tiles>> Map::arrayOfTilesGetter () {
 void Map::saveState(istream log) {
 	//TODO
 }
+void Map::saveGameState(){
+    Json::Value actualJson; //creates the main JSON object 
+    Json::StyledStreamWriter writer; // write to JSON
+    ofstream newFile;  //open new file
+    std::ifstream gameStateFile("GameState.json"); //Create the file
+    actualJson["Map deminsions"]= mapDimension;//save the map dimension to JSON file
+	for (auto i=0; i !=arrayOfTiles.size;i++){
+		Json::Value temp(Json::arrayValue);
+		
+		for(auto j=0; j !=arrayOfTiles[i].size;j++){ //not sure why .size ie erroring out. 
+			Json::Value obj(Json::objectValue);
+			obj[<String>Unit::getAttackPower]=arrayOfTiles[i][j]; // somehow we need cast the getters to String. 
+			obj[<String>Unit::getDefensePower]=arrayOfTiles[i][j];
+			obj[<String>Unit::getMovement]=arrayOfTiles[i][j];
+			temp.append(obj);
+		}
+	
+		actualJson.append(temp);
+	}
+    
+    newFile.open("GameState.json");
+    writer.write(newFile, actualJson);
+    newFile.close();
+}
+
 
 // Move unit tile to tile
 // pre:: given unit id, location, and destination.  post:: unit is removed from location and added to destination, if the unit has the movement points and does not pass through any enemy adjacent tiles

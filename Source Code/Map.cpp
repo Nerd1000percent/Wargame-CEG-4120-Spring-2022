@@ -44,9 +44,9 @@ list<Coordinates> Map::getEngagedUnits() {
 
 
 	auto enemies = false;
-	if (enemeies == unit->getFlag()) {
-		enemmies = true;
-	}
+//	if (enemies == unit->getFlag()) {
+//		enemies = true;
+//	}
 
 	// TODO: find a way to distinquish between both roles if a player switches colors
 list<Coordinates> listOfHostiles = new list<>();

@@ -1,7 +1,7 @@
 ///Implementation of Map
 #include "Map.h"
 #include "Unit.h"
-//#include <json/json.h>
+#include "nlohmann/json.hpp"
 #include "Coordinates.h"
 #include <list>
 #include <array>
@@ -36,6 +36,9 @@ void Map::saveState(istream log) {
 	//TODO
 }
 void Map::saveGameState(){
+	nlohmann::json state;
+	state["mapDimension"] = mapDimension;
+	cout << __FUNCTION__ << ":" << __LINE__ << " state=" << state.dump() << endl;
 	/*
     Json::Value actualJson; //creates the main JSON object 
     Json::StyledStreamWriter writer; // write to JSON

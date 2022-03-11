@@ -53,6 +53,31 @@ double Unit::getDefensePower() const
    return m_defensePower;
 }
 
+void Unit::setID(const std::string id)
+{
+    m_ID = id;
+}
+
+void Unit::setActive(const bool active)
+{
+    m_active = active;
+}
+
+void Unit::setMovement(const int movement)
+{
+    m_numMoves = movement;
+}
+
+void Unit::setAttackPower(const double attackPower)
+{
+    m_attackPower = attackPower;
+}
+
+void Unit::setDefensePower(const double defensePower)
+{
+    m_defensePower = defensePower;
+}
+
 // If this unit is attacking, damage is the ratio of enemy's defense power to this unit's attack power
 // If this unit is defending, damage is the ratio of enemy's attack power to this unit's defense power
 void Unit::dealDamage(double damage)
@@ -81,8 +106,6 @@ void Unit::printUnit(){
    std::cout << "\nDefense Power: " << m_defensePower << "\n";
 }
 
-
-// serializers
 void to_json(nlohmann::json& j, const Unit& u)
 {
   /*
@@ -101,9 +124,11 @@ void to_json(nlohmann::json& j, const Unit& u)
 
 void from_json(const nlohmann::json& j, Unit& u)
 {
-  // this is the id from the json.
-  // how do we set it in u?
-  // u.setID() doesn't seem to exist.
-  j["id"].get<std::string>();
+  // j["id"].get<std::string>();
 
+  u.setID(j["id"]);
+  u.setActive(j["active"]);
+  u.setMovement(j["num_moves"]);
+  u.setAttackPower(j["attack_power"]);
+  u.setDefensePower(j["defense_power"]);
 }

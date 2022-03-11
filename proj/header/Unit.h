@@ -24,27 +24,27 @@ private:
    std::string m_ID;
 
    /**
-   * indicates whether unit is active (i.e. whether it's still in the game)
+   * This indicates whether Unit is active (i.e. whether it's still in the game).
    */
    bool m_active;
 
    /**
-   * number of moves the unit may make per turn
+   * This is the number of moves the Unit may make per turn.
    */
    int m_numMoves;
 
    /**
-   * number of moves the unit has left on the current turn
+   * This is the number of moves the Unit has left on the current turn.
    */
    int m_currentMoves;
 
    /**
-   * attack value
+   * This is the Unit's attack value.
    */
    double m_attackPower;
 
    /**
-   * defense value
+   * This is the Unit's defense value.
    */
    double m_defensePower;
 
@@ -53,91 +53,115 @@ public:
    // Constructors
 
 // need a default constructor for serialization
+
+   /**
+   * Creates new Unit objects.
+   */
    Unit() = default;
 
    /**
-   * creates new Unit objects
-   * @param id String identifier
-   * @param numMoves Number of moves per turn
-   * @param attackPower attack value for combat
-   * @param defensePower defense value for combat
+   * Creates new Unit objects.
+   * @param id String identifier.
+   * @param numMoves Number of moves per turn.
+   * @param attackPower Attack value for combat.
+   * @param defensePower Defense value for combat.
    */
    Unit(std::string id, int numMoves, double attackPower, double defensePower);
 
    /**
-   * creates copies of Unit objects
-   * @param other Reference to the Unit object to be copied
+   * Creates copies of Unit objects.
+   * @param other Reference to the Unit object to be copied.
    */
    Unit(Unit& other);
 
-   // Getter functions
+   // Attribute accessor functions
 
    /**
-   * gets m_id
+   * Gets the Unit's m_id attribute.
    * @returns m_id
    */
    std::string getID() const;
 
    /**
-   * gets m_active
+   * Gets the Unit's m_active attribute.
    * @returns m_active
    */
    bool isActive() const;
 
    /**
-   * gets m_numMoves
+   * Gets the Unit's m_numMoves attribute.
    * @returns m_numMoves
    */
    int getMovement() const;
 
    /**
-   * gets m_currentMoves
+   * Gets the Unit's m_currentMoves attribute.
    * @returns m_currentMoves
    */
    int getCurrentMovement() const;
 
    /**
-   * gets m_attackPower
+   * Gets the Unit's m_attackPower attribute.
    * @returns m_attackPower
    */
    double getAttackPower() const;
 
    /**
-   * gets m_defensePower
+   * Gets the Unit's m_defensePower attribute.
    * @returns m_defensePower
    */
    double getDefensePower() const;
 
+   // Attribute mutator functions
+
+   void setID(const std::string id);
+
+   void setActive(const bool active);
+
+   void setMovement(const int movement);
+
+   void setAttackPower(const double attackPower);
+
+   void setDefensePower(const double defensePower);
+
    // Unit action functions
 
    /**
-   * deducts damage from Unit's attack and defense then sets m_active to false if either reach 0
-   * @param damage value to be deducted from the Unit's attack and defense values
+   * Deducts damage from Unit's attack and defense then sets m_active to false if either reach 0.
+   * @param damage Value to be deducted from the Unit's attack and defense values.
    * @returns void
    */
    void dealDamage(double damage);
 
    /**
-   * deducts cost from m_currentMoves
+   * Deducts cost from m_currentMoves.
    * @param cost The number to be deducted from m_currentMoves
    */
    void spendMovement(int cost);
 
    /**
-   * sets m_currentMoves to the value of m_numMoves
+   * Sets m_currentMoves to the value of m_numMoves.
    */
    void resetMovement();
 
    // Debugging functions
 
    /**
-   * prints out the member variables
+   * Prints out the member variables.
    */
    void printUnit();
 };
 
-// serializers
+// Serializer functions for game state reading/writing
+
+/**
+* TODO
+*/
 void to_json(nlohmann::json& j, const Unit& u);
+
+/**
+* TODO
+*/
 void from_json(const nlohmann::json& j, Unit& u);
 
 #endif

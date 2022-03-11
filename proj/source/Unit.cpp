@@ -105,4 +105,5 @@ void from_json(const nlohmann::json& j, Unit& u)
   // how do we set it in u?
   // u.setID() doesn't seem to exist.
   j["id"].get<std::string>();
+
 }

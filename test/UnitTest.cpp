@@ -96,10 +96,8 @@ TEST_F(UnitTestSuite, serializationTest)
 
   // verify all the fields
   EXPECT_EQ(p_unit->getID(), unit.getID());
-  //
-  //EXPECT_EQ(p_unit, unit);
-  //EXPECT_EQ(p_unit, unit);
-  //EXPECT_EQ(p_unit, unit);
-  //EXPECT_EQ(p_unit, unit);
-
+  EXPECT_EQ(p_unit->isActive(), unit.isActive());
+  EXPECT_EQ(p_unit->getMovement(), unit.getMovement());
+  EXPECT_EQ(p_unit->getAttackPower(), unit.getAttackPower());
+  EXPECT_EQ(p_unit->getDefensePower(), unit.getDefensePower());
 }

@@ -20,6 +20,7 @@ public:
    
    Unit(std::string id, int numMoves, int attackPower, int defensePower);
    Unit(Unit& other);
+   Unit(Unit& destroyedUnit, bool active);
 
    std::string getID();
    bool isActive();

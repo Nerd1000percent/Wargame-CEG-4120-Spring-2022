@@ -2,6 +2,7 @@
 #include "Map.h"
 #include "Unit.h"
 #include <json/json.h>
+#include "Coordinates.h"
 #include <list>
 #include <array>
 #include <fstream>
@@ -24,7 +25,7 @@ Map::Map(int dim) {
 }
 
 Map::Map(const Map* clone) {
-   
+   //TODO:clone the map
 }
 //Getter
 vector<vector<Tiles>> Map::arrayOfTilesGetter () {
@@ -80,6 +81,81 @@ int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2])
 		arrayOfTiles[destinationCoords[0]][destinationCoords[1]].addUnit(*unit); // TODO overload this to call copy constructor
 		arrayOfTiles[locCoords[0]][locCoords[1]].removeUnit(*unit); // not sure if this is how it needs to be called
 	}
+}
+
+/** Interates through all tiles to see who is engaged. Will return a list of coordinates of hostiles within range of attack
+ */
+list<Coordinates> Map::getEngagedUnits() {
+
+
+	auto enemies = false;
+//	if (enemies == unit->getFlag()) {
+//		enemies = true;
+//	}
+
+	// TODO: find a way to distinquish between both roles if a player switches colors
+list<Coordinates> listOfHostiles = new list<>();
+
+	// Find all engaged units first
+	for(auto r = 0; r < mapDimension; r++) {
+		for(auto c = 0; c < mapDimension; c++) {
+
+
+			// player's pieces
+			if(arrayofTiles[r][c]->getFlag() != enemies){
+				engagedUnits->insert(arrayOfTiles[r][c]->getUnit());
+
+				// now looking for hostiles
+				auto leftValid = false, rightValid = false;
+
+				if(c - 1 >= 0) {
+					leftValid = true;
+					if(arrayofTiles[r][c - 1]->getFlag() == enemies) {
+						listOfHostiles.insert(new Coordinates (r, c - 1));
+					}
+				}
+
+				if(c + 1 < mapDimension) {
+					rightValid = true; 
+					if(arrayofTiles[r][c + 1]->getFlag() == enemies) {
+					 	listOfHostiles.insert(new Coordinates (r, c + 1));
+					}
+				}
+				if(r - 1 >= 0) {
+					if(arrayOfTiles[r - 1][c]->getFlag() == enemies) {
+						listOfHostiles.insert(new Coordinates (r - 1, c));
+					}
+					if(leftValid) {
+						if(arrayofTiles[r - 1][c - 1]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates (r - 1, c - 1));
+						}
+					}
+					if(rightValid) {
+						if(arrayofTiles[r - 1][c + 1]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates (r - 1, c + 1));
+						}
+					}
+				}
+				if(r + 1 < mapDimension) {
+						if(arrayofTiles[r + 1][c]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates(r + 1, c));
+						}
+					if(leftValid) {
+						if(arrayofTiles[r + 1][c - 1]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates (r + 1, c - 1));
+						}
+					}
+					if(rightValid) {
+						if(arrayofTiles[r + 1][c + 1]->getFlag() == enemies) {
+							listOfHostiles.insert(new Coordinates (r + 1, c + 1));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	
 }
 
 // pre:: given unit pointer and location/destination coords post:: check for sufficient movement and that will not enter hostile adjacent tile then will move unit to new tile

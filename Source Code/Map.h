@@ -4,6 +4,7 @@
 #pragma once
 #include "Unit.h"
 #include "Tiles.h"
+#include"Coordinates.h"
 #include<list>
 #include<string>
 #include<iostream>
@@ -28,7 +29,7 @@ public:
    void addTile(string terrainName, int terrainCost, int xCoord, int yCoord);
    void saveGameState();
    //TODO void resolveCombat();
-   //TODO void findEgnagedUnits();
+   list<Coordinates> getEngagedUnits();
 private:
 	bool hostileCheck(int coords[2]);
 	bool checkPath(Unit* unit, int locCoords[2], int destinationCoords[2]);

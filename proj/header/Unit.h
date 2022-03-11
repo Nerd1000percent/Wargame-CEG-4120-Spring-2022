@@ -17,7 +17,7 @@ private:
    // member variables
 
    /**
-   * string identifier
+   * This is a unique string identifier.
    */
    std::string m_ID;
 

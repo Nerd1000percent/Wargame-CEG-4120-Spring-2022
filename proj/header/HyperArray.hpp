@@ -3,6 +3,9 @@
 
 #include <vector>
 
+/**
+* @brief This class is used as a multi-dimensional array
+*/
 template <class T>
 class HyperArray
 {

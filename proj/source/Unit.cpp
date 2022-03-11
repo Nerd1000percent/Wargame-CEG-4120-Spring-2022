@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
+Unit::Unit(std::string id, int numMoves, double attackPower, double defensePower)
 : m_ID{id}
 , m_active{true}
 , m_numMoves{numMoves}

@@ -3,9 +3,6 @@
 #include <string>
 #include <memory>
 
-//temporary for debugging
-#include <typeinfo>
-
 #include "Unit.h"
 
 using namespace std;

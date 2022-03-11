@@ -16,18 +16,23 @@ public:
     int numMoves = 3;
     int attackPower = 7;
     int defensePower = 9;
-    pUnit = std::make_shared<Unit>(id, numMoves, attackPower, defensePower);
+    p_unit = std::make_shared<Unit>(id, numMoves, attackPower, defensePower);
   }
 
   // Override this to define how to tear down the environment.
   void TearDown() override {
-    pUnit.reset();
+      p_unit.reset();
   }
 
-  std::shared_ptr<Unit> pUnit;
+  std::shared_ptr<Unit> p_unit;
 };
 
-TEST_F(UnitTestSuite, firstTest)
+// Verify that the constructor has initialized member variables correctly
+// Also verify that the getter functions work correctly
+TEST_F(UnitTestSuite, testConstructor)
 {
-  EXPECT_EQ(pUnit->getID(), "test_unit");
+  EXPECT_EQ(p_unit->getID(), "test_unit");
+  EXPECT_EQ(p_unit->getMovement(), 3);
+  EXPECT_EQ(p_unit->getAttackPower(), 7);
+  EXPECT_EQ(p_unit->getDefensePower(), 9);
 }

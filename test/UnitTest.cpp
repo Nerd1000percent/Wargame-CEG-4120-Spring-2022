@@ -58,11 +58,25 @@ TEST_F(UnitTestSuite, testCopyConstructor)
 // Verify that the dealDamage function changes the attack and defense values of units correctly
 TEST_F(UnitTestSuite, testDealDamage)
 {
+    // this unit is dealt 6 damage, attack power goes down to 1 but it is still active
     p_unit->dealDamage(6);
     EXPECT_EQ(p_unit->getAttackPower(), 1);
     EXPECT_EQ(p_unit->isActive(), true);
 
+    // this unit is dealt 7 damage, attack power goes down to 1 so it is inactive
     p_unitCopy->dealDamage(7);
     EXPECT_EQ(p_unitCopy->getAttackPower(), 0);
     EXPECT_EQ(p_unitCopy->isActive(), false);
+}
+
+// Verify that spendMovement and resetMovement functions work correctly
+TEST_F(UnitTestSuite, testMovement)
+{
+    // m_currentMoves should be 0 after 3 of the 3 total movements points are spent
+    p_unit->spendMovement(3);
+    EXPECT_EQ(p_unit->getCurrentMovement(), 0);
+    
+    // m_currentMoves should be 3 after it is reset to m_numMoves
+    p_unit->resetMovement();
+    EXPECT_EQ(p_unit->getCurrentMovement(), 3);
 }

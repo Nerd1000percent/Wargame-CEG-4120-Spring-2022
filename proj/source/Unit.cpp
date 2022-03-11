@@ -34,27 +34,27 @@ Unit::Unit(Unit& destroyedUnit, bool m_active)
    destroyedUnit.m_defensePower = 0.0;
 }
 
-std::string Unit::getID()
+std::string Unit::getID() const
 {
    return m_ID;
 }
 
-bool Unit::isActive()
+bool Unit::isActive() const
 {
    return m_active;
 }
 
-int Unit::getMovement()
+int Unit::getMovement() const
 {
    return m_numMoves;
 }
 
-double Unit::getAttackPower ()
+double Unit::getAttackPower () const
 {
    return m_attackPower;
 }
 
-double Unit::getDefensePower()
+double Unit::getDefensePower() const
 {
    return m_defensePower;
 }
@@ -102,4 +102,30 @@ void Unit::printUnit(){
    std::cout << "\nAvailable Movement Range: " << m_currentMoves;
    std::cout << "\nAttack Power: " << m_attackPower;
    std::cout << "\nDefense Power: " << m_defensePower << "\n";
+}
+
+
+// serializers
+void to_json(nlohmann::json& j, const Unit& u)
+{
+  /*
+  std::string m_ID;
+   bool m_active;
+   int m_numMoves;
+   double m_attackPower;
+   double m_defensePower;
+  */
+  j["id"] = u.getID();
+  j["active"] = u.isActive();
+  j["num_moves"] = u.getMovement();
+  j["attack_power"] = u.getAttackPower();
+  j["defense_power"] = u.getDefensePower();
+}
+
+void from_json(const nlohmann::json& j, Unit& u)
+{
+  // this is the id from the json.
+  // how do we set it in u?
+  // u.setID() doesn't seem to exist.
+  j["id"].get<std::string>();
 }

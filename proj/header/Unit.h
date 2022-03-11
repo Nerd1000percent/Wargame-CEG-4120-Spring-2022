@@ -5,6 +5,8 @@
 #include <vector>
 #include <memory>
 
+#include "nlohmann/json.hpp"
+
 class Unit
 {
 private:
@@ -18,15 +20,17 @@ private:
    std::vector<std::shared_ptr<Unit>> m_engagementList;
 public:
    
+   // need a default constructor for serialization
+   Unit() = default;
    Unit(std::string id, int numMoves, int attackPower, int defensePower);
    Unit(Unit& other);
    Unit(Unit& destroyedUnit, bool active);
 
-   std::string getID();
-   bool isActive();
-   int getMovement();
-   double getAttackPower();
-   double getDefensePower();
+   std::string getID() const;
+   bool isActive() const;
+   int getMovement() const;
+   double getAttackPower() const;
+   double getDefensePower() const;
    int getCurrentMovement();
 
    void dealDamage(double damage);
@@ -36,4 +40,9 @@ public:
    void printUnit();
    void resetMovement();
 };
+
+// serializers
+void to_json(nlohmann::json& j, const Unit& u);
+void from_json(const nlohmann::json& j, Unit& u);
+
 #endif

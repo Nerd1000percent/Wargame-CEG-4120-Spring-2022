@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Unit.h"
+#include "nlohmann/json.hpp"
 
 using namespace std;
 
@@ -30,4 +31,21 @@ public:
 TEST_F(UnitTestSuite, firstTest)
 {
   EXPECT_EQ(pUnit->getID(), "test_unit");
+}
+
+TEST_F(UnitTestSuite, serializationTest)
+{
+  // serialize the unit
+  nlohmann::json j = *pUnit;
+
+#ifdef _DEBUG
+  cout << __FUNCTION__ << ":" << __LINE__ << " unit=" << j.dump() << endl;
+#endif
+
+  // deserialize the unit
+  Unit unit;
+  j.get_to(unit);
+
+  // verify all the fields
+  EXPECT_EQ(pUnit->getID(), unit.getID());
 }

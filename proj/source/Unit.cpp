@@ -5,12 +5,12 @@
 
 Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
 : m_ID{id}
+, m_active{true}
 , m_numMoves{numMoves}
+, m_currentMoves{numMoves}
 , m_attackPower{1.0*attackPower}
 , m_defensePower{1.0*defensePower}
 {
-   m_active = true;
-   m_engagementList;
 }
 
 Unit::Unit(Unit& other)
@@ -38,7 +38,12 @@ int Unit::getMovement()
    return m_numMoves;
 }
 
-double Unit::getAttackPower ()
+int Unit::getCurrentMovement()
+{
+    return m_currentMoves;
+}
+
+double Unit::getAttackPower()
 {
    return m_attackPower;
 }
@@ -58,11 +63,13 @@ void Unit::dealDamage(double damage)
       m_active = false; 
 }
 
-void Unit::spendMovement(int cost){
+void Unit::spendMovement(int cost)
+{
    m_currentMoves -= cost;
 }
 
-void Unit::resetMovement(){
+void Unit::resetMovement()
+{
    m_currentMoves = m_numMoves;
 }
 

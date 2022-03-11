@@ -2,6 +2,7 @@
 #define HyperArray_hpp
 
 #include <vector>
+#include "nlohmann/json.hpp"
 
 template <class T>
 class HyperArray
@@ -66,6 +67,11 @@ public:
     return coords;
   }
 
+  const std::vector<T>& getData() const
+  {
+    return m_data;
+  }
+
 private:
   std::vector<size_t> m_dimensions;
   std::vector<T> m_data;
@@ -80,5 +86,28 @@ private:
     return num;
   }
 };
+
+// serializers
+template <class T>
+void to_json(nlohmann::json& j, const HyperArray<T>& h)
+{
+  j["dimensions"] = h.getDimensions();
+  j["data"] = h.getData();
+}
+
+template <class T>
+void from_json(const nlohmann::json& j, HyperArray<T>& h)
+{
+  std::vector<size_t> dimensions;
+  j["dimensions"].get_to(dimensions);
+  size_t num = 1;
+  for (auto d : dimensions)
+    num *= d;
+  std::vector<T> data;
+  j["data"].get_to(data);
+  h = HyperArray<T>(dimensions);
+  for (size_t i = 0; i < data.size(); i++)
+    h.at(i) = data.at(i);
+}
 
 #endif

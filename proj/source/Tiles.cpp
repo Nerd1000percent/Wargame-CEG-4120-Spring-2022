@@ -2,6 +2,7 @@
 #include "Tiles.h"
 #include "Unit.h"
 #include "Map.h"
+#include "Terrain.h"
 #include <algorithm> // what makes this needed?
 #include <iostream>
 //Constructor
@@ -11,7 +12,7 @@ Tiles::Tiles() {
 }
 
 Tiles::Tiles(string terrainName, int terrainCost) {
-   this->terrainClass = Terrain(terrainName, terrainCost);
+   this->terrainClass = std::make_shared<Terrain>(terrainName, terrainCost);
 }
 
 //Getters, data types are to be changed
@@ -19,7 +20,7 @@ Tiles::Tiles(string terrainName, int terrainCost) {
    return terrainClass;
 }
 
-list<Unit> Tiles::allOfUnitClassesGetter () {
+ std::list<std::shared_ptr<Unit>> Tiles::allOfUnitClassesGetter () {
    return allOfUnitClasses;
 }
 //test
@@ -34,9 +35,9 @@ list<Unit> Tiles::allOfUnitClassesGetter () {
    allOfUnitClasses.push_front(New);
 }
 
-void Tiles::removeUnit(Unit &Remove){
+void Tiles::removeUnit(std::shared_ptr<Unit> Remove){
 
-   Unit(&Remove, false);
+   //TODO
 
 }
 void Tiles::listUnit(){
@@ -55,8 +56,8 @@ void Tiles::listUnit(){
 //     }
 // }
 
-Unit* Tiles::findUnit(string find){
+std::shared_ptr<Unit> Tiles::findUnit(string find){
    for (auto it : allOfUnitClasses)
-      if (it.getID().compare(find)) return &it;
-   return NULL; //returning NULL if not found so that Map can know
+      if (it->getID().compare(find)) return it;
+   return nullptr; //returning NULL if not found so that Map can know
 }

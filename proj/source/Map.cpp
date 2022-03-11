@@ -1,7 +1,7 @@
 ///Implementation of Map
 #include "Map.h"
 #include "Unit.h"
-#include <json/json.h>
+//#include <json/json.h>
 #include "Coordinates.h"
 #include <list>
 #include <array>
@@ -36,6 +36,7 @@ void Map::saveState(istream log) {
 	//TODO
 }
 void Map::saveGameState(){
+	/*
     Json::Value actualJson; //creates the main JSON object 
     Json::StyledStreamWriter writer; // write to JSON
     ofstream newFile;  //open new file
@@ -58,6 +59,7 @@ void Map::saveGameState(){
     newFile.open("GameState.json");
     writer.write(newFile, actualJson);
     newFile.close();
+		*/
 }
 
 
@@ -65,7 +67,10 @@ void Map::saveGameState(){
 // pre:: given unit id, location, and destination.  post:: unit is removed from location and added to destination, if the unit has the movement points and does not pass through any enemy adjacent tiles
 int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2])
 {
-	//TODO logging
+	//TODO 
+	return 0;
+
+	/*
 	Unit* unit = arrayOfTiles[locCoords[0]][locCoords[1]].findUnit(unitId); //not sure if this is how it needs to be called
 	if (unit == 0) return 0;
 
@@ -76,25 +81,31 @@ int Map::moveUnit(string unitId, int locCoords[2], int destinationCoords[2])
 	//	arrayOfTiles[destinationCoords[0]][destinationCoords[1]].addUnit(unit);
 	//	arrayOfTiles[locCoords[0]][locCoords[1]]->removeUnit(unit); // not sure if this is how it needs to be called
 	//}
+	*/
 
+	/*
 	if (checkPath(unit, locCoords, destinationCoords)) {
 		arrayOfTiles[destinationCoords[0]][destinationCoords[1]].addUnit(*unit); // TODO overload this to call copy constructor
 		arrayOfTiles[locCoords[0]][locCoords[1]].removeUnit(*unit); // not sure if this is how it needs to be called
 	}
+	*/
 }
 
 /** Interates through all tiles to see who is engaged. Will return a list of coordinates of hostiles within range of attack
  */
 list<Coordinates> Map::getEngagedUnits() {
 
+	//TODO
+	return {};
 
+	/*
 	auto enemies = false;
 //	if (enemies == unit->getFlag()) {
 //		enemies = true;
 //	}
 
 	// TODO: find a way to distinquish between both roles if a player switches colors
-list<Coordinates> listOfHostiles = new list<>();
+	list<Coordinates> listOfHostiles;
 
 	// Find all engaged units first
 	for(auto r = 0; r < mapDimension; r++) {
@@ -154,7 +165,7 @@ list<Coordinates> listOfHostiles = new list<>();
 			}
 		}
 	}
-
+	*/
 	
 }
 

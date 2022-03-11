@@ -1,17 +1,17 @@
-#ifndef COORDINATES-H
-#define COORDINATES-H
-#pragma once
+#ifndef COORDINATES_H
+#define COORDINATES_H
 
 class Coordinates {
-    private:
-        auto row;
-        auto column;
-    public:
-        Coordinates ();
-        Coordinates (row, column);
-        auto setRow(auto newRow);
-        auto getRow();
-        auto setColumn(auto newColumn)
-        auto getColumn();
-        
-}
+private:
+  size_t row;
+  size_t column;
+public:
+  Coordinates();
+  Coordinates(size_t row, size_t column);
+  void setRow(size_t newRow);
+  size_t getRow();
+  void setColumn(size_t newColumn);
+  size_t getColumn();
+};
+
+#endif

@@ -11,25 +11,25 @@ class Unit;
 class Terrain;
 
 class Tiles {
-//Attributes
+  //Attributes
 private:
-    std::shared_ptr<Terrain> terrainClass;
-   std::list<std::shared_ptr<Unit>> allOfUnitClasses;
-//Member functions
+  std::shared_ptr<Terrain> terrainClass;
+  std::list<std::shared_ptr<Unit>> allOfUnitClasses;
+  //Member functions
 public:
-   //Constructor
-   Tiles();
-   Tiles(std::string terrainName, int terrainCost);
+  //Constructor
+  Tiles();
+  Tiles(std::string terrainName, int terrainCost);
 
-   //Getters
-   std::shared_ptr<Terrain> terrainClassGetter();
-   std::list<Unit> allOfUnitClassesGetter();
+  //Getters
+  std::shared_ptr<Terrain> terrainClassGetter();
+  std::list<std::shared_ptr<Unit>> allOfUnitClassesGetter();
 
-   //functions
-   void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
-   void addUnit(std::shared_ptr<Unit> New);
-   void removeUnit(std::shared_ptr<Unit> Remove);
-   Unit* findUnit(std::string find); // return pointer of a given unitid
-   void listUnit();
+  //functions
+  void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
+  void addUnit(std::shared_ptr<Unit> New);
+  void removeUnit(std::shared_ptr<Unit> Remove);
+  std::shared_ptr<Unit> findUnit(std::string find); // return pointer of a given unitid
+  void listUnit();
 };
 #endif

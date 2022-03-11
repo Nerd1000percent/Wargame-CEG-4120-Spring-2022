@@ -30,7 +30,7 @@ public:
    int getCurrentMovement();
 
    void dealDamage(double damage);
-   void engageUnit(std::unique_ptr<Unit> enemy);
+   void engageUnit(std::shared_ptr<Unit> enemy);
    void disengageUnit(std::string unitID);
    void spendMovement(int cost);
    void printUnit();

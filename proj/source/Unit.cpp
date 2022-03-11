@@ -8,8 +8,8 @@
 Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
 : m_ID{id}
 , m_numMoves{numMoves}
-, m_attackPower{attackPower}
-, m_defensePower{defensePower}
+, m_attackPower{1.0*attackPower}
+, m_defensePower{1.0*defensePower}
 {
    m_active = true;
    m_engagementList;
@@ -69,7 +69,7 @@ void Unit::dealDamage(double damage)
       m_active = false; 
 }
 
-void Unit::engageUnit(std::unique_ptr<Unit> enemy)
+void Unit::engageUnit(std::shared_ptr<Unit> enemy)
 {
    m_engagementList.push_back(enemy);
 }
@@ -79,7 +79,7 @@ void Unit::disengageUnit(std::string unitID)
 {
    for (auto it = m_engagementList.begin() ; it != m_engagementList.end(); ++it)
    {
-       auto unit = it;
+       auto unit = *it;
        if (unit->getID() == unitID)
        {
            m_engagementList.erase(it);

@@ -1,8 +1,6 @@
 #include "Unit.h"
 
-
 #include <string>
-
 #include <iostream>
 
 Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
@@ -23,15 +21,6 @@ Unit::Unit(Unit& other)
     m_attackPower = other.getAttackPower();
     m_defensePower = other.getDefensePower();
     m_currentMoves = m_numMoves;
-}
-
-Unit::Unit(Unit& destroyedUnit, bool m_active)
-{
-   destroyedUnit.m_ID = "";
-   destroyedUnit.m_active = m_active;
-   destroyedUnit.m_numMoves = 0;
-   destroyedUnit.m_attackPower = 0.0;
-   destroyedUnit.m_defensePower = 0.0;
 }
 
 std::string Unit::getID()
@@ -67,25 +56,6 @@ void Unit::dealDamage(double damage)
    m_defensePower -= damage;
    if (m_attackPower <= 0 || m_defensePower <= 0)
       m_active = false; 
-}
-
-void Unit::engageUnit(std::shared_ptr<Unit> enemy)
-{
-   m_engagementList.push_back(enemy);
-}
-
-// Remove a specific unit from the engagement list
-void Unit::disengageUnit(std::string unitID)
-{
-   for (auto it = m_engagementList.begin() ; it != m_engagementList.end(); ++it)
-   {
-       auto unit = *it;
-       if (unit->getID() == unitID)
-       {
-           m_engagementList.erase(it);
-           break;
-       }
-   }
 }
 
 void Unit::spendMovement(int cost){

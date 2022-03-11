@@ -13,7 +13,7 @@ class MapTestSuite : public testing::Test
 public:
   // Override this to define how to set up the environment.
   void SetUp() override {
-    pMap = std::make_shared<Map>();
+    pMap = std::make_shared<Map>(5);
   }
 
   // Override this to define how to tear down the environment.

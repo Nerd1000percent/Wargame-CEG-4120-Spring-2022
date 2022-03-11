@@ -8,27 +8,12 @@
 #include <fstream>
 #include <string>
 
-//Constructor
-Map::Map() {
-	this->mapDimension = 0;
-}
-
-Map::Map(int dim) {
-	this->mapDimension = dim;
+Map::Map(size_t dim) : arrayOfTiles({ dim, dim }) {
 	
-	// initialize 2d vector
-	arrayOfTiles.clear();
-	for (int i = 0; i < dim; i++)
-	{
-		arrayOfTiles.push_back(vector<Tiles>(dim));
-	}
 }
 
-Map::Map(const Map* clone) {
-   //TODO:clone the map
-}
 //Getter
-vector<vector<Tiles>> Map::arrayOfTilesGetter () {
+HyperArray<Tiles>& Map::arrayOfTilesGetter () {
    return arrayOfTiles;
 }
 
@@ -37,7 +22,7 @@ void Map::saveState(istream log) {
 }
 void Map::saveGameState(){
 	nlohmann::json state;
-	state["mapDimension"] = mapDimension;
+	state["mapDimension"] = "todo";
 	cout << __FUNCTION__ << ":" << __LINE__ << " state=" << state.dump() << endl;
 	/*
     Json::Value actualJson; //creates the main JSON object 
@@ -235,6 +220,6 @@ bool Map::hostileCheck(int coords[2]) {
 	return false;
 }
 
-void Map::addTile(string terrainName, int terrainCost, int xCoord, int yCoord) {
-	arrayOfTiles[xCoord][yCoord] = Tiles(terrainName, terrainCost); 
+void Map::addTile(string terrainName, int terrainCost, size_t xCoord, size_t yCoord) {
+	arrayOfTiles.at({ yCoord, xCoord }) = Tiles(terrainName, terrainCost);
 }

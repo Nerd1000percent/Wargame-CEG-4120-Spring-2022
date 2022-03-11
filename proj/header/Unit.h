@@ -5,6 +5,8 @@
 #include <vector>
 #include <memory>
 
+#include "nlohmann/json.hpp"
+
 /**
 * @brief This class represents combat units in the game
 * Unit objects have a string identifier, an active flag, a set number of allowed moves per turn, and attack and defense values for combat
@@ -50,6 +52,9 @@ public:
    
    // Constructors
 
+// need a default constructor for serialization
+   Unit() = default;
+
    /**
    * creates new Unit objects
    * @param id String identifier
@@ -71,37 +76,37 @@ public:
    * gets m_id
    * @returns m_id
    */
-   std::string getID();
+   std::string getID() const;
 
    /**
    * gets m_active
    * @returns m_active
    */
-   bool isActive();
+   bool isActive() const;
 
    /**
    * gets m_numMoves
    * @returns m_numMoves
    */
-   int getMovement();
+   int getMovement() const;
 
    /**
    * gets m_currentMoves
    * @returns m_currentMoves
    */
-   int getCurrentMovement();
+   int getCurrentMovement() const;
 
    /**
    * gets m_attackPower
    * @returns m_attackPower
    */
-   double getAttackPower();
+   double getAttackPower() const;
 
    /**
    * gets m_defensePower
    * @returns m_defensePower
    */
-   double getDefensePower();
+   double getDefensePower() const;
 
    // Unit action functions
 
@@ -130,4 +135,9 @@ public:
    */
    void printUnit();
 };
+
+// serializers
+void to_json(nlohmann::json& j, const Unit& u);
+void from_json(const nlohmann::json& j, Unit& u);
+
 #endif

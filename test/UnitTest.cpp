@@ -55,8 +55,14 @@ TEST_F(UnitTestSuite, testCopyConstructor)
     EXPECT_EQ(p_unitCopy->getDefensePower(), 9);
 }
 
-// Verify that the dealDamage function
+// Verify that the dealDamage function changes the attack and defense values of units correctly
 TEST_F(UnitTestSuite, testDealDamage)
 {
+    p_unit->dealDamage(6);
+    EXPECT_EQ(p_unit->getAttackPower(), 1);
+    EXPECT_EQ(p_unit->isActive(), true);
 
+    p_unitCopy->dealDamage(7);
+    EXPECT_EQ(p_unitCopy->getAttackPower(), 0);
+    EXPECT_EQ(p_unitCopy->isActive(), false);
 }

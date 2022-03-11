@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.19)
-project (WargameWorkspace)
+project (Wargame)
 
-add_executable (Wargame
-	source/Main.cpp
+add_library (Wargame STATIC
+	source/Wargame.cpp
 	source/Map.cpp
 	header/Map.h
 	source/Terrain.cpp
@@ -11,8 +11,20 @@ add_executable (Wargame
 	header/Tiles.h
 	source/Unit.cpp
 	header/Unit.h
-	)
-  
- target_include_directories (Wargame 
-   PUBLIC header
- )
+)
+
+target_include_directories (Wargame 
+  PUBLIC header
+  PUBLIC ${CMAKE_SOURCE_DIR}/nlohmann/include
+)
+
+add_executable (WargameApp
+  source/Wargame.cpp
+)
+
+target_link_libraries (WargameApp
+  PUBLIC Wargame
+)
+
+
+

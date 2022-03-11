@@ -1,7 +1,7 @@
 //Create a class Map
 #ifndef MAP_H
 #define MAP_H
-#pragma once
+
 #include "Unit.h"
 #include "Tiles.h"
 #include"Coordinates.h"

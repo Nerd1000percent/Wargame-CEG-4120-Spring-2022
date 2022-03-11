@@ -11,6 +11,7 @@ add_library (Wargame STATIC
 	header/Tiles.h
 	source/Unit.cpp
 	header/Unit.h
+	header/HyperArray.hpp
 )
 
 target_include_directories (Wargame 

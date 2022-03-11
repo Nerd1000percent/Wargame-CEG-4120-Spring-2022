@@ -36,3 +36,8 @@ TEST_F(UnitTestSuite, testConstructor)
   EXPECT_EQ(p_unit->getAttackPower(), 7);
   EXPECT_EQ(p_unit->getDefensePower(), 9);
 }
+
+TEST_F(UnitTestSuite, testCopyConstructor)
+{
+
+}

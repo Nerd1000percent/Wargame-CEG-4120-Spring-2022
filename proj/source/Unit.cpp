@@ -43,7 +43,7 @@ int Unit::getCurrentMovement() const
     return m_currentMoves;
 }
 
-double Unit::getAttackPower()
+double Unit::getAttackPower() const
 {
    return m_attackPower;
 }

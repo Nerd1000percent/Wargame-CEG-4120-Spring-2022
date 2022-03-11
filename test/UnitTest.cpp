@@ -39,6 +39,7 @@ public:
 TEST_F(UnitTestSuite, testConstructor)
 {
   EXPECT_EQ(p_unit->getID(), "test_unit");
+  EXPECT_EQ(p_unit->isActive(), true);
   EXPECT_EQ(p_unit->getMovement(), 3);
   EXPECT_EQ(p_unit->getAttackPower(), 7);
   EXPECT_EQ(p_unit->getDefensePower(), 9);
@@ -48,6 +49,7 @@ TEST_F(UnitTestSuite, testConstructor)
 TEST_F(UnitTestSuite, testCopyConstructor)
 {
     EXPECT_EQ(p_unitCopy->getID(), "test_unit");
+    EXPECT_EQ(p_unitCopy->isActive(), true);
     EXPECT_EQ(p_unitCopy->getMovement(), 3);
     EXPECT_EQ(p_unitCopy->getAttackPower(), 7);
     EXPECT_EQ(p_unitCopy->getDefensePower(), 9);
@@ -82,7 +84,7 @@ TEST_F(UnitTestSuite, testMovement)
 TEST_F(UnitTestSuite, serializationTest)
 {
   // serialize the unit
-  nlohmann::json j = *pUnit;
+  nlohmann::json j = *p_unit;
 
 #ifdef _DEBUG
   cout << __FUNCTION__ << ":" << __LINE__ << " unit=" << j.dump() << endl;
@@ -93,5 +95,11 @@ TEST_F(UnitTestSuite, serializationTest)
   j.get_to(unit);
 
   // verify all the fields
-  EXPECT_EQ(pUnit->getID(), unit.getID());
+  EXPECT_EQ(p_unit->getID(), unit.getID());
+  //
+  //EXPECT_EQ(p_unit, unit);
+  //EXPECT_EQ(p_unit, unit);
+  //EXPECT_EQ(p_unit, unit);
+  //EXPECT_EQ(p_unit, unit);
+
 }

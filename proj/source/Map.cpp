@@ -226,7 +226,6 @@ void Map::addTile(string terrainName, int terrainCost, size_t xCoord, size_t yCo
 
 void to_json(nlohmann::json& j, const Map& m)
 {
-	//HyperArray<Tiles> arrayOfTiles;
 	j["map"] = m.m_arrayOfTiles;
 }
 

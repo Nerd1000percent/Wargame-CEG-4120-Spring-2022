@@ -72,7 +72,7 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 		for (auto enemy : destUnits)
 		{
 			// fight the enemy
-			unit->fight(enemy);
+			unit->fightEnemy(enemy);
 
 			// check to see if the enemy died
 			if (!enemy->isActive())

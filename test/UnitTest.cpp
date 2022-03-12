@@ -14,10 +14,11 @@ public:
   // Override this to define how to set up the environment.
   void SetUp() override {
     std::string id = "test_unit";
+    std::string team = "team";
     int numMoves = 3;
     int attackPower = 7;
     int defensePower = 9;
-    p_unit = make_shared<Unit>(id, numMoves, attackPower, defensePower);
+    p_unit = make_shared<Unit>(id, team, numMoves, attackPower, defensePower);
     
     // auto temp = *p_unit.get();
     // cout << "Type of temp : " << typeid(temp).name() << endl;

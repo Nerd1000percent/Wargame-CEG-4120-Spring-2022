@@ -47,6 +47,8 @@ private:
    */
    double m_defensePower;
 
+   std::string m_team;
+
 public:
    
    // Constructors
@@ -65,13 +67,7 @@ public:
    * @param attackPower Attack value for combat.
    * @param defensePower Defense value for combat.
    */
-   Unit(std::string id, int numMoves, double attackPower, double defensePower);
-
-   /**
-   * Creates copies of Unit objects.
-   * @param other Reference to the Unit object to be copied.
-   */
-   Unit(Unit& other);
+   Unit(std::string id, std::string team, int numMoves, double attackPower, double defensePower);
 
    // Attribute accessor functions
 
@@ -122,6 +118,9 @@ public:
    void setAttackPower(const double attackPower);
 
    void setDefensePower(const double defensePower);
+
+   void setTeam(std::string team);
+   std::string getTeam() const;
 
    // Unit action functions
 

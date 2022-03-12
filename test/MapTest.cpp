@@ -27,11 +27,6 @@ public:
   std::shared_ptr<Map> p_map;
 };
 
-TEST_F(MapTestSuite, testSaveGameState)
-{
-  p_map->saveGameState();
-}
-
 TEST_F(MapTestSuite, testSerialization)
 {
   // serialize the map

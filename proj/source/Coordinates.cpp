@@ -1,29 +1,23 @@
 #include "Coordinates.h"
 using namespace std;
-Coordinates::Coordinates() {
-    this.column = 0;
-    this.row = 0;
+
+Coordinates::Coordinates(size_t column, size_t row) {
+  m_column = column;
+  m_row = row;
 }
 
-Coordinates::Coordinates(auto column, auto row) {
-    this.column = column;
-    this.row = row;
+void Coordinates::setColumn(size_t column) {
+  m_column = column;
 }
 
-auto Coordinates::setColumn(auto newColumn) {
-    this.column = newColumn;
+size_t Coordinates::getColumn() {
+  return m_column;
 }
 
-auto Coordinates::getColumn () {
-    auto c = this.column;
-    return c;
+void Coordinates::setRow(size_t row) {
+  m_row = row;
 }
 
-auto Coordinates::setRow(auto newRow) {
-    this.row = newRow;
-}
-
-auto Coordinates::getRow() {
-    auto r = this.row;
-    return r;
+size_t Coordinates::getRow() {
+  return m_row;
 }

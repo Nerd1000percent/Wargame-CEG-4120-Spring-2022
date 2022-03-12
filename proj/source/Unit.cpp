@@ -89,6 +89,11 @@ void Unit::dealDamage(double damage)
     m_active = false;
 }
 
+void Unit::fightEnemy(std::shared_ptr<Unit> enemy)
+{
+
+}
+
 void Unit::spendMovement(int cost)
 {
   m_currentMoves -= cost;

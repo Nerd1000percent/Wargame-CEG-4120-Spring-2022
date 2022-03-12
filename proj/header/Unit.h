@@ -131,6 +131,8 @@ public:
    */
    void dealDamage(double damage);
 
+   void fightEnemy(std::shared_ptr<Unit> enemy);
+
    /**
    * Deducts cost from m_currentMoves.
    * @param cost The number to be deducted from m_currentMoves

@@ -81,7 +81,7 @@ std::string Unit::getTeam() const
 
 // If this unit is attacking, damage is the ratio of enemy's defense power to this unit's attack power
 // If this unit is defending, damage is the ratio of enemy's attack power to this unit's defense power
-void Unit::dealDamage(double damage)
+void Unit::receiveDamage(double damage)
 {
   m_attackPower -= damage;
   m_defensePower -= damage;
@@ -91,7 +91,11 @@ void Unit::dealDamage(double damage)
 
 void Unit::fightEnemy(std::shared_ptr<Unit> enemy)
 {
+    double attackDamage = this->m_attackPower / enemy->getDefensePower(); // ratio of this->m_attackPower to enemy->m_defensePower
+    double defenseDamage = enemy->getDefensePower() / this->m_defensePower; // ratio of enemy->m_defensePower to this->m_defensePower
 
+    this->receiveDamage(defenseDamage);
+    enemy->receiveDamage(attackDamage);
 }
 
 void Unit::spendMovement(int cost)

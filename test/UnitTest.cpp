@@ -60,12 +60,12 @@ TEST_F(UnitTestSuite, testCopyConstructor)
 TEST_F(UnitTestSuite, testDealDamage)
 {
     // this unit is dealt 6 damage, attack power goes down to 1 but it is still active
-    p_unit->dealDamage(6);
+    p_unit->receiveDamage(6);
     EXPECT_DOUBLE_EQ(p_unit->getAttackPower(), 1.0);
     EXPECT_EQ(p_unit->isActive(), true);
 
     // this unit is dealt 7 damage, attack power goes down to 1 so it is inactive
-    p_unitCopy->dealDamage(7);
+    p_unitCopy->receiveDamage(7);
     EXPECT_DOUBLE_EQ(p_unitCopy->getAttackPower(), 0.0);
     EXPECT_EQ(p_unitCopy->isActive(), false);
 }

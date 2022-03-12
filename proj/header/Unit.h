@@ -129,7 +129,7 @@ public:
    * @param damage Value to be deducted from the Unit's attack and defense values.
    * @returns void
    */
-   void dealDamage(double damage);
+   void receiveDamage(double damage);
 
    void fightEnemy(std::shared_ptr<Unit> enemy);
 

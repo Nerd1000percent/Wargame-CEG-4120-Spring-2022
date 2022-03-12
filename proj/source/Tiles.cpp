@@ -86,9 +86,6 @@ void to_json(nlohmann::json& j, const Tiles& t)
 
 void from_json(const nlohmann::json& j, Tiles& t)
 {
-  // for debugging
-  //std::cout << __FUNCTION__ << ":" << __LINE__ << " " << j.dump() << std::endl;
-
   Terrain terrain;
   j["terrain"].get_to(terrain);
   t.setTerrain(terrain);

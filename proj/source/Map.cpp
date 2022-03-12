@@ -29,7 +29,7 @@ void to_json(nlohmann::json& j, const Map& m)
 
 void from_json(const nlohmann::json& j, Map& m)
 {
-	j.get_to(m.m_arrayOfTiles);
+	j["map"].get_to(m.m_arrayOfTiles);
 }
 
 bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)

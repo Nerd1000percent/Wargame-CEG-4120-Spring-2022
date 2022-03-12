@@ -97,11 +97,17 @@ TEST_F(TilesTestSuite, serialization2)
     auto i = origUnits.begin();
     auto j = copyUnits.begin();
     while (i != origUnits.end() && j != copyUnits.end())
-    {
-        // the shared pointers should be pointing to the same units in the global database
-        //EXPECT_EQ((*i).get(), (*j).get());
+    {        
+        // grab temporary pointers to both i and j
+        Unit* tempI = (*i).get();
+        Unit* tempJ = (*j).get();
 
-        // TODO compare the pointers' contents one by one instead of the pointers themselves
+        // compare the pointers' contents one by one instead of the pointers themselves
+        EXPECT_EQ(tempI->getID(), tempJ->getID());
+        EXPECT_EQ(tempI->isActive(), tempJ->isActive());
+        EXPECT_EQ(tempI->getMovement(), tempJ->getMovement());
+        EXPECT_EQ(tempI->getAttackPower(), tempJ->getAttackPower());
+        EXPECT_EQ(tempI->getDefensePower(), tempJ->getDefensePower());
 
         // advance to the next units
         ++i;

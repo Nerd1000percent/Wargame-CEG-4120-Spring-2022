@@ -43,22 +43,49 @@ public:
 
 TEST_F(MapTestSuite, testSize)
 {
-    EXPECT_EQ(p_map->size().getColumn(), 1);
-    EXPECT_EQ(p_map->size().getRow(), 1);
+
 }
 
-TEST_F(MapTestSuite, testSerialization)
+TEST_F(MapTestSuite, serializationTest)
 {
+  // make a map
+  Coordinates dimensions{ 3, 5 };
+  Map orig(dimensions);
+  
+  // populate the map
+  for (size_t row = 0; row < dimensions.getRow(); row++)
+  {
+    for (size_t col = 0; col < dimensions.getColumn(); col++)
+    {
+      auto& tile = orig.getTile({ row, col });
+      std::string name = "(" + std::to_string(row) + ", " + std::to_string(col) + ")";
+      int cost = dimensions.getColumn() * row + col;
+      tile.setTerrain({ name, cost });
+    }
+  }  
+
   // serialize the map
-  
+  nlohmann::json j = orig;
 
-  // change to _DEBUG to make this work again
-#ifdef DEBUG
-  cout << __FUNCTION__ << ":" << __LINE__ << " unit=" << j.dump() << endl;
-#endif
+  cout << j.dump() << endl;
 
-  // deserialize the map
-  
+  // deserialze the map
+  Map copy({ 0, 0 });
+  j.get_to(copy);
 
-  // verify all the fields
+  // check results
+  for (size_t row = 0; row < dimensions.getRow(); row++)
+  {
+    for (size_t col = 0; col < dimensions.getColumn(); col++)
+    {
+      auto& origTile = orig.getTile({ row, col });
+      auto& copyTile = copy.getTile({ row, col });
+
+      auto origTerrain = origTile.getTerrain();
+      auto copyTerrain = copyTile.getTerrain();
+
+      EXPECT_EQ(origTerrain.getMovementCost(), copyTerrain.getMovementCost());
+      EXPECT_EQ(origTerrain.getName(), copyTerrain.getName());
+    }
+  }
 }

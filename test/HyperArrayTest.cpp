@@ -91,9 +91,4 @@ namespace hyperarraytest
 
   }
 
-  TEST(HyperArraySuite, todoTest)
-  {
-    //EXPECT_TRUE(false) << "finish testing they hyperarray";
-  }
-
 }//namespace hyperarraytest

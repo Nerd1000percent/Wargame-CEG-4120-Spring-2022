@@ -5,6 +5,7 @@
 
 #include "Coordinates.h"
 #include "Map.h"
+#include "Unit.h"
 #include "UnitDatabase.h"
 #include "nlohmann/json.hpp"
 
@@ -24,6 +25,43 @@ public:
   void TearDown() override {
     UnitDatabase::getUnitDatabase().clear();
   }
+};
+
+class BattleMapTestSuite : public testing::Test
+{
+public:
+  // Override this to define how to set up the environment.
+  void SetUp() override {
+
+    // clear database
+    UnitDatabase::getUnitDatabase().clear();
+    UnitDatabase::getUnitDatabase().addUnit(make_shared<Unit>("weak", "losers", 1, 1.0, 1.0));
+    UnitDatabase::getUnitDatabase().addUnit(make_shared<Unit>("strong", "winners", 1, 10, 10));
+
+    /*
+       1 1 1 1
+       1 w s 1
+       1 1 1 1
+    */
+    Terrain desert{"desert", 1};
+    pMap = std::make_shared<Map>(Coordinates{ 3, 4 });
+    for(size_t r = 0; r<pMap->size().getRow(); r++)
+      for (size_t c = 0; c < pMap->size().getColumn(); c++)
+      {
+        auto& tile = pMap->getTile({r, c});
+        tile.setTerrain(desert);
+      }
+    pMap->getTile({ 1, 1 }).addUnit(UnitDatabase::getUnitDatabase().getUnit("weak"));
+    pMap->getTile({ 1, 2 }).addUnit(UnitDatabase::getUnitDatabase().getUnit("strong"));
+  }
+
+  // Override this to define how to tear down the environment.
+  void TearDown() override {
+    pMap.reset();
+    UnitDatabase::getUnitDatabase().clear();
+  }
+
+  std::shared_ptr<Map> pMap;
 };
 
 TEST_F(MapTestSuite, testSize)
@@ -123,4 +161,11 @@ TEST_F(MapTestSuite, serializationTest)
       EXPECT_EQ(origTerrain.getName(), copyTerrain.getName());
     }
   }
+}
+
+TEST_F(BattleMapTestSuite, moveAway)
+{
+  nlohmann::json j = *pMap;
+  std::cout << j.dump() << std::endl;
+
 }

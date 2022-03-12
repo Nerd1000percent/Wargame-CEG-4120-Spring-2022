@@ -46,5 +46,12 @@ void to_json(nlohmann::json& j, const Terrain& t)
 
 void from_json(const nlohmann::json& j, Terrain& t)
 {
+    std::string name;
+    j["name"].get_to(name);
+    t.setName(name);
 
+    int movementCost = 0;
+    j["movement"].get_to(movementCost);
+    t.setMovementCost(movementCost);
+    
 }

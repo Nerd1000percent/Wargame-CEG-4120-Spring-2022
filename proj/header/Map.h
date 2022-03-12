@@ -17,10 +17,13 @@ using namespace std;
 class Map {
   //Attributes
 private:
-  HyperArray<Tiles> arrayOfTiles;
-  list<Unit*> engagedUnits;
+  HyperArray<Tiles> m_arrayOfTiles;
   //Member functions
 public:
+
+  // serializers
+  friend void to_json(nlohmann::json& j, const Map& m);
+  friend void from_json(const nlohmann::json& j, Map& m);
     
   //Constructor
   Map(size_t dim);
@@ -39,9 +42,5 @@ private:
   bool hostileCheck(int coords[2]);
   bool checkPath(Unit* unit, int locCoords[2], int destinationCoords[2]);
 };
-
-// serializers
-void to_json(nlohmann::json& j, const Map& m);
-void from_json(const nlohmann::json& j, Map& m);
 
 #endif

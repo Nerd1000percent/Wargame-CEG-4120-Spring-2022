@@ -61,62 +61,53 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 	if (distance != 1)
 		return false;
 
-	// check to see if the destination tile is empty or is friendly
+	
 	auto destUnits = destTile.getUnits();
-	if (destUnits.size() == 0 || destTile.getTeam() == unit->getTeam())
+
+	// check to see if we are trying to move to a tile with occupying forces
+	if (destUnits.size() > 0 && destTile.getTeam() != unit->getTeam())
 	{
-		auto movement = unit->getCurrentMovement();
-		auto cost = destTile.getTerrain().getMovementCost();
-
-		if (movement >= cost)
+		// fight all of them!
+		std::list<std::shared_ptr<Unit>> dead;
+		for (auto enemy : destUnits)
 		{
-			// just move the unit
-			sourceTile.removeUnit(unit);
-			destTile.addUnit(unit);
-			unit->spendMovement(cost);
+			// fight the enemy
+			unit->fight(enemy);
 
-			// claim this land as our own
-			destTile.setTeam(unit->getTeam());
-			return true;
+			// check to see if the enemy died
+			if (!enemy->isActive())
+				dead.push_back(enemy);
+
+			// check to see if we died
+			if (!unit->isActive())
+				break;
 		}
-		else
+
+		// bury all of the dead
+		for (auto enemy : dead)
 		{
-			// spend the points without moving
-			unit->spendMovement(unit->getCurrentMovement());
+			// remove all of the smart pointers.  they will be gone when the dead list goes out of scope.
+			destTile.removeUnit(enemy);
+			UnitDatabase::getUnitDatabase().removeUnit(enemy->getID());
+		}
+
+		// check to see if we died
+		if (!unit->isActive())
+		{
+			// bury the dead
+			sourceTile.removeUnit(unit);
+			UnitDatabase::getUnitDatabase().removeUnit(unit->getID());
 			return false;
 		}
 	}
 
-	// if we get here, then we are trying to move to a tile with occupying forces.
-	// fight all of them!
-	std::list<std::shared_ptr<Unit>> dead;
-	for (auto enemy : destUnits)
-	{
-		// fight the enemy
-		unit->fight(enemy);
-		
-		// check to see if the enemy died
-		if (!enemy->isActive())
-			dead.push_back(enemy);
+	// if we get here, then we are able to move
+	auto movement = unit->getCurrentMovement();
+	auto cost = destTile.getTerrain().getMovementCost();
 
-		// check to see if we died
-		if (!unit->isActive())
-			break;
-	}
-
-	// bury all of the dead
-	for (auto enemy : dead)
+	if (movement >= cost)
 	{
-		// remove all of the smart pointers.  they will be gone when the dead list goes out of scope.
-		destTile.removeUnit(enemy);
-		UnitDatabase::getUnitDatabase().removeUnit(enemy->getID());
-	}
-
-	/*
-	// check to see if we are still alive
-	if (unit->isActive())
-	{
-		// move the unit ignoring the movement cost
+		// just move the unit
 		sourceTile.removeUnit(unit);
 		destTile.addUnit(unit);
 		unit->spendMovement(cost);
@@ -127,9 +118,8 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 	}
 	else
 	{
-		sourceTile.removeUnit(unit);
-		UnitDatabase::getUnitDatabase().removeUnit(unit->getID());
+		// spend the points without moving
+		unit->spendMovement(unit->getCurrentMovement());
 		return false;
-	}	
-	*/
+	}
 }

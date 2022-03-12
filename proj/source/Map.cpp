@@ -61,7 +61,7 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 	if (distance != 1)
 		return false;
 
-	
+	// get the destination units
 	auto destUnits = destTile.getUnits();
 
 	// check to see if we are trying to move to a tile with occupying forces
@@ -72,7 +72,7 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 		for (auto enemy : destUnits)
 		{
 			// fight the enemy
-			unit->fight(enemy);
+			unit->fightEnemy(enemy);
 
 			// check to see if the enemy died
 			if (!enemy->isActive())
@@ -101,21 +101,36 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 		}
 	}
 
-	// if we get here, then we are able to move
-	auto movement = unit->getCurrentMovement();
-	auto cost = destTile.getTerrain().getMovementCost();
+	// refresh the destination units
+	destUnits = destTile.getUnits();
 
-	if (movement >= cost)
+	// check to see if the destination tile is clear or at least friendly
+	if (destUnits.size() == 0 || destTile.getTeam() == unit->getTeam())
 	{
-		// just move the unit
-		sourceTile.removeUnit(unit);
-		destTile.addUnit(unit);
-		unit->spendMovement(cost);
+		// if we get here, then we are able to move
+		auto movement = unit->getCurrentMovement();
+		auto cost = destTile.getTerrain().getMovementCost();
 
-		// claim this land as our own
-		destTile.setTeam(unit->getTeam());
-		return true;
+		if (movement >= cost)
+		{
+			// just move the unit
+			sourceTile.removeUnit(unit);
+			destTile.addUnit(unit);
+			unit->spendMovement(cost);
+
+			// claim this land as our own
+			destTile.setTeam(unit->getTeam());
+			return true;
+		}
+		else
+		{
+			// spend the points without moving
+			unit->spendMovement(unit->getCurrentMovement());
+			return false;
+		}
 	}
+
+	// still have some enemy on the tile
 	else
 	{
 		// spend the points without moving

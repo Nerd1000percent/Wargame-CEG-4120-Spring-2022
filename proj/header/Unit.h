@@ -9,14 +9,14 @@
 
 /**
 * @brief This class represents combat units in the game
-* Unit objects have a string identifier, an active flag, a set number of allowed moves per turn, and attack and defense values for combat
+* Unit objects have a string identifier, an active flag, a set number of allowed moves per turn, and attack and defense values for combat.
 */
 class Unit
 {
 
 private:
 
-   // member variables
+   // Member variables
 
    /**
    * This is a unique string identifier.
@@ -150,17 +150,22 @@ public:
    * Prints out the member variables.
    */
    void printUnit();
-};
+
+}; // end Unit class
 
 // Serializer functions for game state reading/writing
 
 /**
-* TODO
+* Writes the current values of a unit's member variables to a JSON.
+* @param j JSON to be written to.
+* @param u Unit having its values written to a JSON.
 */
 void to_json(nlohmann::json& j, const Unit& u);
 
 /**
-* TODO
+* Reads values from a JSON into a Unit object.
+* @param j JSON being read from.
+* @param u Unit having values read in from the JSON.
 */
 void from_json(const nlohmann::json& j, Unit& u);
 

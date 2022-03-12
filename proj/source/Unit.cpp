@@ -108,13 +108,6 @@ void Unit::printUnit(){
 
 void to_json(nlohmann::json& j, const Unit& u)
 {
-  /*
-  std::string m_ID;
-   bool m_active;
-   int m_numMoves;
-   double m_attackPower;
-   double m_defensePower;
-  */
   j["id"] = u.getID();
   j["active"] = u.isActive();
   j["num_moves"] = u.getMovement();
@@ -126,9 +119,23 @@ void from_json(const nlohmann::json& j, Unit& u)
 {
   // j["id"].get<std::string>();
 
-  u.setID(j["id"]);
-  u.setActive(j["active"]);
-  u.setMovement(j["num_moves"]);
-  u.setAttackPower(j["attack_power"]);
-  u.setDefensePower(j["defense_power"]);
+  std::string id;
+  j["id"].get_to(id);
+  u.setID(id);
+
+  bool active = true;
+  j["active"].get_to(active);
+  u.setActive(active);
+
+  int numMoves = 0;
+  j["num_moves"].get_to(numMoves);
+  u.setMovement(numMoves);
+
+  double attackPower = 0;
+  j["attack_power"].get_to(attackPower);
+  u.setAttackPower(attackPower);
+
+  double defensePower = 0;
+  j["defense_power"].get_to(attackPower);
+  u.setDefensePower(defensePower);
 }

@@ -32,3 +32,14 @@ void from_json(const nlohmann::json& j, Map& m)
 	j.get_to(m.m_arrayOfTiles);
 }
 
+bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
+{
+	auto sourceTile = getTile(source);
+	auto destTile = getTile(dest);
+	auto unit = sourceTile.findUnit(unitID);
+	if (!unit)
+		return false;
+	sourceTile.removeUnit(unit);
+	destTile.addUnit(unit);
+	return true;
+}

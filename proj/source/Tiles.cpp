@@ -5,6 +5,8 @@
 #include "UnitDatabase.h"
 #include <algorithm> // what makes this needed?
 #include <iostream>
+#include <exception>
+
 //Constructor
 Tiles::Tiles() {
   this->m_terrain;
@@ -21,7 +23,10 @@ Terrain Tiles::getTerrain() const {
 }
 
 std::list<std::shared_ptr<Unit>> Tiles::getUnits() const {
-  return m_units;
+  std::list<std::shared_ptr<Unit>> units;
+  for (auto u : m_units)
+    units.push_back(u.second);
+  return units;
 }
 
 void Tiles::setTerrain(const Terrain& terrain)
@@ -31,46 +36,40 @@ void Tiles::setTerrain(const Terrain& terrain)
 
 void Tiles::setUnits(const std::list<std::shared_ptr<Unit>>& units)
 {
-  m_units = units;
+  m_units.clear();
+  for (auto u : units)
+    m_units[u->getID()] = u;
 }
 
 //test
 //functions data types to be changed accordingly.
 void Tiles::addUnit(std::string id, int numMoves, int attackPower, int defensePower) {
   //place new unit on the map
-  m_units.push_front(std::make_shared<Unit>(id, numMoves, attackPower, defensePower));
+  auto u = UnitDatabase::getUnitDatabase().getUnit(id);
+  if (u)
+    throw std::runtime_error("unit " + id + " already exists");
+  u = std::make_shared<Unit>(id, numMoves, attackPower, defensePower);
+  m_units[id] = u;
 }
 
 //Overloaded funtion for the pointer const in the Unit class. 
-void Tiles::addUnit(std::shared_ptr<Unit> New) {
-  m_units.push_front(New);
+void Tiles::addUnit(std::shared_ptr<Unit> unit) {
+  m_units[unit->getID()] = unit;
 }
 
-void Tiles::removeUnit(std::shared_ptr<Unit> Remove) {
-
-  //TODO
-
+void Tiles::removeUnit(std::shared_ptr<Unit> unit) {
+  if (m_units.count(unit->getID()))
+  {
+    m_units.erase(unit->getID());
+  }
 }
-void Tiles::listUnit() {
-  for (auto const& i : m_units) {
-    std::cout << i << std::endl; //I don't know why this is erroring
-  }// this all views the list in linear form, changes to come later.
-}
-//searchs the list of Units loking for element
-// Unit Tiles::findUnit(Unit find){ //Im not sue how to get the ID at this point, might need defualt const in Unit.cpp so we can access geId
-//    std::list<Unit>::iterator it;
-//   it = std::find (allOfUnitClasses.begin(), allOfUnitClasses.end(), find);
-//     if (it != allOfUnitClasses.end()){
-//        return find;
-//     }else{
-//         return NULL;
-//     }
-// }
 
-std::shared_ptr<Unit> Tiles::findUnit(string find) {
-  for (auto it : m_units)
-    if (it->getID().compare(find)) return it;
-  return nullptr; //returning NULL if not found so that Map can know
+std::shared_ptr<Unit> Tiles::findUnit(string id) {
+  if (m_units.count(id))
+  {
+    return m_units[id];
+  }
+  return nullptr;
 }
 
 void to_json(nlohmann::json& j, const Tiles& t)

@@ -16,10 +16,20 @@ public:
   // Override this to define how to set up the environment.
   void SetUp() override {
     
+    // clear database
     UnitDatabase::getUnitDatabase().clear();
 
-    Coordinates dimensions(3, 3);
+    // build a tile
+    Tiles tile("terrainName", 1);
+    UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit1", 1, 2, 3));
+    UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit2", 4, 5, 6));
+    tile.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit1"));
+    tile.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit2"));
+
+    // create a map with the tile
+    Coordinates dimensions(1, 1);
     p_map = std::make_shared<Map>(dimensions);
+    //p_map->
   }
 
   // Override this to define how to tear down the environment.
@@ -33,8 +43,8 @@ public:
 
 TEST_F(MapTestSuite, testSize)
 {
-    EXPECT_EQ(p_map->size().getColumn(), 3);
-    EXPECT_EQ(p_map->size().getRow(), 3);
+    EXPECT_EQ(p_map->size().getColumn(), 1);
+    EXPECT_EQ(p_map->size().getRow(), 1);
 }
 
 TEST_F(MapTestSuite, testSerialization)

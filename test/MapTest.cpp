@@ -5,8 +5,8 @@
 
 #include "Map.h"
 #include "UnitDatabase.h"
+#include "nlohmann/json.hpp"
 
-#include <memory>
 using namespace std;
 
 class MapTestSuite : public testing::Test
@@ -24,10 +24,27 @@ public:
     UnitDatabase::getUnitDatabase().clear();
   }
 
-  std::shared_ptr<Map> pMap;
+  std::shared_ptr<Map> p_map;
 };
 
-TEST_F(MapTestSuite, firstTest)
+TEST_F(MapTestSuite, testSaveGameState)
 {
-  pMap->saveGameState();
+  p_map->saveGameState();
+}
+
+TEST_F(MapTestSuite, testSerialization)
+{
+  // serialize the map
+  nlohmann::json j = *p_map;
+
+  // change to _DEBUG to make this work again
+#ifdef DEBUG
+  cout << __FUNCTION__ << ":" << __LINE__ << " unit=" << j.dump() << endl;
+#endif
+
+  // deserialize the map
+  Map map(5);
+  j.get_to(map);
+
+  // verify all the fields
 }

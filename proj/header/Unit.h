@@ -1,11 +1,10 @@
 #ifndef UNIT_H
 #define UNIT_H
 
+#include "nlohmann/json.hpp"
 #include <string>
 #include <vector>
 #include <memory>
-
-#include "nlohmann/json.hpp"
 
 /**
 * @brief This class represents combat units in the game

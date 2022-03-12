@@ -223,3 +223,14 @@ bool Map::hostileCheck(int coords[2]) {
 void Map::addTile(string terrainName, int terrainCost, size_t xCoord, size_t yCoord) {
 	arrayOfTiles.at({ yCoord, xCoord }) = Tiles(terrainName, terrainCost);
 }
+
+void to_json(nlohmann::json& j, const Map& m)
+{
+
+}
+
+void from_json(const nlohmann::json& j, Map& m)
+{
+
+}
+

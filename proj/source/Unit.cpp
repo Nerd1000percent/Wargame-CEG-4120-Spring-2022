@@ -136,6 +136,6 @@ void from_json(const nlohmann::json& j, Unit& u)
   u.setAttackPower(attackPower);
 
   double defensePower = 0;
-  j["defense_power"].get_to(attackPower);
+  j["defense_power"].get_to(defensePower);
   u.setDefensePower(defensePower);
 }

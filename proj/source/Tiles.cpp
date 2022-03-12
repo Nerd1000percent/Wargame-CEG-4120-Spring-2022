@@ -110,6 +110,7 @@ void from_json(const nlohmann::json& j, Tiles& t)
       UnitDatabase::getUnitDatabase().addUnit(pUnit);
       unitList.push_back(pUnit);
     }
+    unitList.push_back(pUnit);
   }
   t.setUnits(unitList);
 }

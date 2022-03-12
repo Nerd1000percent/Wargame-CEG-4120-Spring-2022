@@ -35,7 +35,7 @@ TEST_F(TilesTestSuite, serialization)
 
   // serialize it to json
   nlohmann::json json = original;
-  cout << __FUNCTION__ << ":" << __LINE__ << " original=" << json.dump() << endl;
+  //cout << __FUNCTION__ << ":" << __LINE__ << " original=" << json.dump() << endl;
 
   // clear the global datbase to see if the units get restored
   //UnitDatabase::getUnitDatabase().clear();

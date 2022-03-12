@@ -26,5 +26,5 @@ public:
 
 TEST_F(MapTestSuite, firstTest)
 {
-  pMap->saveGameState();
+  //pMap->saveGameState();
 }

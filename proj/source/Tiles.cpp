@@ -41,15 +41,14 @@ void Tiles::setUnits(const std::list<std::shared_ptr<Unit>>& units)
     m_units[u->getID()] = u;
 }
 
-//test
 //functions data types to be changed accordingly.
-void Tiles::addUnit(std::string id, int numMoves, int attackPower, int defensePower) {
+void Tiles::addUnit(std::string id, std::string team, int numMoves, int attackPower, int defensePower) {
   //place new unit on the map
   auto u = UnitDatabase::getUnitDatabase().getUnit(id);
   if (u)
     throw std::runtime_error("unit " + id + " already exists");
-  u = std::make_shared<Unit>(id, numMoves, attackPower, defensePower);
-  m_units[id] = u;
+  u = std::make_shared<Unit>(id, team, numMoves, attackPower, defensePower);
+  addUnit(u);
 }
 
 //Overloaded funtion for the pointer const in the Unit class. 
@@ -72,9 +71,20 @@ std::shared_ptr<Unit> Tiles::findUnit(string id) {
   return nullptr;
 }
 
+void Tiles::setTeam(std::string team)
+{
+  m_team = team;
+}
+
+std::string Tiles::getTeam() const
+{
+  return m_team;
+}
+
 void to_json(nlohmann::json& j, const Tiles& t)
 {
   j["terrain"] = t.getTerrain();
+  j["team"] = t.getTeam();  
   j["units"] = std::vector<Unit>();
   
   for (auto& u : t.getUnits())
@@ -88,6 +98,10 @@ void from_json(const nlohmann::json& j, Tiles& t)
   Terrain terrain;
   j["terrain"].get_to(terrain);
   t.setTerrain(terrain);
+
+  std::string team;
+  j["team"].get_to(team);
+  t.setTeam(team);
 
   // clear the units
   t.setUnits({});

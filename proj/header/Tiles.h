@@ -18,6 +18,7 @@ class Tiles {
 private:
   Terrain m_terrain;
   std::map<std::string, std::shared_ptr<Unit>> m_units;
+  std::string m_team;
   //Member functions
 public:
   //Constructor
@@ -31,8 +32,11 @@ public:
   void setTerrain(const Terrain& terrain);
   void setUnits(const std::list<std::shared_ptr<Unit>>& units);
 
+  void setTeam(std::string team);
+  std::string getTeam() const;
+
   //functions
-  void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
+  void addUnit(std::string id, std::string team, int numMoves, int attackPower, int defensePower);
   void addUnit(std::shared_ptr<Unit> unit);
   void removeUnit(std::shared_ptr<Unit> unit);
   std::shared_ptr<Unit> findUnit(std::string id); // return pointer of a given unitid

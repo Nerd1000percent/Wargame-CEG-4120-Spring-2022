@@ -28,8 +28,8 @@ TEST_F(TilesTestSuite, serialization)
 {
   // build a tile
   Tiles original("terrainName", 1);
-  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit1", 1, 2, 3));
-  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit2", 4, 5, 6));
+  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit1", "team", 1, 2, 3));
+  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit2", "team", 4, 5, 6));
   original.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit1"));
   original.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit2"));
 
@@ -65,8 +65,8 @@ TEST_F(TilesTestSuite, serialization2)
 {
   // build a tile
   Tiles original("terrainName", 1);
-  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit1", 1, 2, 3));
-  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit2", 4, 5, 6));
+  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit1", "team", 1, 2, 3));
+  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit2", "team", 4, 5, 6));
   original.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit1"));
   original.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit2"));
 

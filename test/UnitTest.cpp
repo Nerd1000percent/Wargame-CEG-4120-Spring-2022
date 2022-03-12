@@ -41,8 +41,8 @@ TEST_F(UnitTestSuite, testConstructor)
   EXPECT_EQ(p_unit->getID(), "test_unit");
   EXPECT_EQ(p_unit->isActive(), true);
   EXPECT_EQ(p_unit->getMovement(), 3);
-  EXPECT_EQ(p_unit->getAttackPower(), 7);
-  EXPECT_EQ(p_unit->getDefensePower(), 9);
+  EXPECT_DOUBLE_EQ(p_unit->getAttackPower(), 7);
+  EXPECT_DOUBLE_EQ(p_unit->getDefensePower(), 9);
 }
 
 // Verify that the copy constructor creates copies correctly
@@ -51,8 +51,8 @@ TEST_F(UnitTestSuite, testCopyConstructor)
     EXPECT_EQ(p_unitCopy->getID(), "test_unit");
     EXPECT_EQ(p_unitCopy->isActive(), true);
     EXPECT_EQ(p_unitCopy->getMovement(), 3);
-    EXPECT_EQ(p_unitCopy->getAttackPower(), 7);
-    EXPECT_EQ(p_unitCopy->getDefensePower(), 9);
+    EXPECT_DOUBLE_EQ(p_unitCopy->getAttackPower(), 7);
+    EXPECT_DOUBLE_EQ(p_unitCopy->getDefensePower(), 9);
 }
 
 // Verify that the dealDamage function changes the attack and defense values of units correctly
@@ -60,12 +60,12 @@ TEST_F(UnitTestSuite, testDealDamage)
 {
     // this unit is dealt 6 damage, attack power goes down to 1 but it is still active
     p_unit->dealDamage(6);
-    EXPECT_EQ(p_unit->getAttackPower(), 1);
+    EXPECT_DOUBLE_EQ(p_unit->getAttackPower(), 1.0);
     EXPECT_EQ(p_unit->isActive(), true);
 
     // this unit is dealt 7 damage, attack power goes down to 1 so it is inactive
     p_unitCopy->dealDamage(7);
-    EXPECT_EQ(p_unitCopy->getAttackPower(), 0);
+    EXPECT_DOUBLE_EQ(p_unitCopy->getAttackPower(), 0.0);
     EXPECT_EQ(p_unitCopy->isActive(), false);
 }
 
@@ -98,6 +98,6 @@ TEST_F(UnitTestSuite, serializationTest)
   EXPECT_EQ(p_unit->getID(), unit.getID());
   EXPECT_EQ(p_unit->isActive(), unit.isActive());
   EXPECT_EQ(p_unit->getMovement(), unit.getMovement());
-  EXPECT_EQ(p_unit->getAttackPower(), unit.getAttackPower());
-  EXPECT_EQ(p_unit->getDefensePower(), unit.getDefensePower());
+  EXPECT_DOUBLE_EQ(p_unit->getAttackPower(), unit.getAttackPower());
+  EXPECT_DOUBLE_EQ(p_unit->getDefensePower(), unit.getDefensePower());
 }

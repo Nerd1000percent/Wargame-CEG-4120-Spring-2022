@@ -86,7 +86,8 @@ TEST_F(UnitTestSuite, serializationTest)
   // serialize the unit
   nlohmann::json j = *p_unit;
 
-#ifdef _DEBUG
+// change to _DEBUG to make this work again
+#ifdef DEBUG
   cout << __FUNCTION__ << ":" << __LINE__ << " unit=" << j.dump() << endl;
 #endif
 

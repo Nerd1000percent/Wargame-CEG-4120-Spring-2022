@@ -6,6 +6,7 @@
 #include "Tiles.h"
 #include "Coordinates.h"
 #include "HyperArray.hpp"
+#include "nlohmann/json.hpp"
 
 #include<list>
 #include<string>
@@ -38,4 +39,9 @@ private:
   bool hostileCheck(int coords[2]);
   bool checkPath(Unit* unit, int locCoords[2], int destinationCoords[2]);
 };
+
+// serializers
+void to_json(nlohmann::json& j, const Map& m);
+void from_json(const nlohmann::json& j, Map& m);
+
 #endif

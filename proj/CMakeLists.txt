@@ -12,6 +12,8 @@ add_library (Wargame STATIC
 	source/Unit.cpp
 	header/Unit.h
 	header/HyperArray.hpp
+	header/UnitDatabase.h
+	source/UnitDatabase.cpp
 )
 
 target_include_directories (Wargame 

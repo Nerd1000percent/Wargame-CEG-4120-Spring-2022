@@ -5,6 +5,8 @@ add_executable(TestSuite
   UnitTest.cpp
   MapTest.cpp
   HyperArrayTest.cpp
+  UnitDatabaseTest.cpp
+  TilesTest.cpp
 )
  
 target_link_libraries (TestSuite

@@ -2,9 +2,11 @@
 #ifndef TILES_H
 #define TILES_H
 
+#include "Terrain.h"
+#include "nlohmann/json.hpp"
+
 #include <string>
 #include <memory>
-#include <iostream>
 #include <list>
 
 class Unit;
@@ -13,8 +15,8 @@ class Terrain;
 class Tiles {
   //Attributes
 private:
-  std::shared_ptr<Terrain> terrainClass;
-  std::list<std::shared_ptr<Unit>> allOfUnitClasses;
+  Terrain m_terrain;
+  std::list<std::shared_ptr<Unit>> m_units;
   //Member functions
 public:
   //Constructor
@@ -22,8 +24,11 @@ public:
   Tiles(std::string terrainName, int terrainCost);
 
   //Getters
-  std::shared_ptr<Terrain> terrainClassGetter();
-  std::list<std::shared_ptr<Unit>> allOfUnitClassesGetter();
+  Terrain getTerrain() const;
+  std::list<std::shared_ptr<Unit>> getUnits() const;
+
+  void setTerrain(const Terrain& terrain);
+  void setUnits(const std::list<std::shared_ptr<Unit>>& units);
 
   //functions
   void addUnit(std::string id, int numMoves, int attackPower, int defensePower);
@@ -32,4 +37,8 @@ public:
   std::shared_ptr<Unit> findUnit(std::string find); // return pointer of a given unitid
   void listUnit();
 };
+
+void to_json(nlohmann::json& j, const Tiles& t);
+void from_json(const nlohmann::json& j, Tiles& t);
+
 #endif

@@ -8,13 +8,13 @@
 #include <fstream>
 #include <string>
 
-Map::Map(size_t dim) : arrayOfTiles({ dim, dim }) {
+Map::Map(size_t dim) : m_arrayOfTiles({ dim, dim }) {
 	
 }
 
 //Getter
 HyperArray<Tiles>& Map::arrayOfTilesGetter () {
-   return arrayOfTiles;
+   return m_arrayOfTiles;
 }
 
 void Map::saveState(istream log) {
@@ -221,16 +221,17 @@ bool Map::hostileCheck(int coords[2]) {
 }
 
 void Map::addTile(string terrainName, int terrainCost, size_t xCoord, size_t yCoord) {
-	arrayOfTiles.at({ yCoord, xCoord }) = Tiles(terrainName, terrainCost);
+	m_arrayOfTiles.at({ yCoord, xCoord }) = Tiles(terrainName, terrainCost);
 }
 
 void to_json(nlohmann::json& j, const Map& m)
 {
-
+	//HyperArray<Tiles> arrayOfTiles;
+	j["map"] = m.m_arrayOfTiles;
 }
 
 void from_json(const nlohmann::json& j, Map& m)
 {
-
+	j.get_to(m.m_arrayOfTiles);
 }
 

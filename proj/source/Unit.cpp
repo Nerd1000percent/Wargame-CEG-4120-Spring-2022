@@ -1,18 +1,16 @@
 #include "Unit.h"
 
-
 #include <string>
-
 #include <iostream>
 
-Unit::Unit(std::string id, int numMoves, int attackPower, int defensePower)
+Unit::Unit(std::string id, int numMoves, double attackPower, double defensePower)
 : m_ID{id}
+, m_active{true}
 , m_numMoves{numMoves}
+, m_currentMoves{numMoves}
 , m_attackPower{1.0*attackPower}
 , m_defensePower{1.0*defensePower}
 {
-   m_active = true;
-   m_engagementList;
 }
 
 Unit::Unit(Unit& other)
@@ -23,15 +21,6 @@ Unit::Unit(Unit& other)
     m_attackPower = other.getAttackPower();
     m_defensePower = other.getDefensePower();
     m_currentMoves = m_numMoves;
-}
-
-Unit::Unit(Unit& destroyedUnit, bool m_active)
-{
-   destroyedUnit.m_ID = "";
-   destroyedUnit.m_active = m_active;
-   destroyedUnit.m_numMoves = 0;
-   destroyedUnit.m_attackPower = 0.0;
-   destroyedUnit.m_defensePower = 0.0;
 }
 
 std::string Unit::getID() const
@@ -49,7 +38,12 @@ int Unit::getMovement() const
    return m_numMoves;
 }
 
-double Unit::getAttackPower () const
+int Unit::getCurrentMovement() const
+{
+    return m_currentMoves;
+}
+
+double Unit::getAttackPower() const
 {
    return m_attackPower;
 }
@@ -57,6 +51,31 @@ double Unit::getAttackPower () const
 double Unit::getDefensePower() const
 {
    return m_defensePower;
+}
+
+void Unit::setID(const std::string id)
+{
+    m_ID = id;
+}
+
+void Unit::setActive(const bool active)
+{
+    m_active = active;
+}
+
+void Unit::setMovement(const int movement)
+{
+    m_numMoves = movement;
+}
+
+void Unit::setAttackPower(const double attackPower)
+{
+    m_attackPower = attackPower;
+}
+
+void Unit::setDefensePower(const double defensePower)
+{
+    m_defensePower = defensePower;
 }
 
 // If this unit is attacking, damage is the ratio of enemy's defense power to this unit's attack power
@@ -69,30 +88,13 @@ void Unit::dealDamage(double damage)
       m_active = false; 
 }
 
-void Unit::engageUnit(std::shared_ptr<Unit> enemy)
+void Unit::spendMovement(int cost)
 {
-   m_engagementList.push_back(enemy);
-}
-
-// Remove a specific unit from the engagement list
-void Unit::disengageUnit(std::string unitID)
-{
-   for (auto it = m_engagementList.begin() ; it != m_engagementList.end(); ++it)
-   {
-       auto unit = *it;
-       if (unit->getID() == unitID)
-       {
-           m_engagementList.erase(it);
-           break;
-       }
-   }
-}
-
-void Unit::spendMovement(int cost){
    m_currentMoves -= cost;
 }
 
-void Unit::resetMovement(){
+void Unit::resetMovement()
+{
    m_currentMoves = m_numMoves;
 }
 
@@ -104,8 +106,6 @@ void Unit::printUnit(){
    std::cout << "\nDefense Power: " << m_defensePower << "\n";
 }
 
-
-// serializers
 void to_json(nlohmann::json& j, const Unit& u)
 {
   /*
@@ -124,8 +124,11 @@ void to_json(nlohmann::json& j, const Unit& u)
 
 void from_json(const nlohmann::json& j, Unit& u)
 {
-  // this is the id from the json.
-  // how do we set it in u?
-  // u.setID() doesn't seem to exist.
-  j["id"].get<std::string>();
+  // j["id"].get<std::string>();
+
+  u.setID(j["id"]);
+  u.setActive(j["active"]);
+  u.setMovement(j["num_moves"]);
+  u.setAttackPower(j["attack_power"]);
+  u.setDefensePower(j["defense_power"]);
 }

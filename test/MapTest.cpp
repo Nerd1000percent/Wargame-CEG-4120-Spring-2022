@@ -28,7 +28,25 @@ public:
 
 TEST_F(MapTestSuite, testSize)
 {
+    // make a map
+    Coordinates dimensions{ 2, 4 };
+    Map map(dimensions);
 
+    // populate the map
+    for (size_t row = 0; row < dimensions.getRow(); row++)
+    {
+        for (size_t col = 0; col < dimensions.getColumn(); col++)
+        {
+            auto& tile = map.getTile({ row, col });
+            std::string name = "(" + std::to_string(row) + ", " + std::to_string(col) + ")";
+            int cost = dimensions.getColumn() * row + col;
+            tile.setTerrain({ name, cost });
+        }
+    }
+
+    // check that the map dimensions are correct
+    EXPECT_EQ(map.size().getColumn(), dimensions.getColumn());
+    EXPECT_EQ(map.size().getRow(), dimensions.getRow());
 }
 
 TEST_F(MapTestSuite, serializationTest)

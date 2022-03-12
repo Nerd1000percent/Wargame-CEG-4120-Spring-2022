@@ -33,6 +33,8 @@ public:
   Coordinates size();
 
   Tiles& getTile(Coordinates coords);
+
+  bool moveUnit(std::string unitID, Coordinates source, Coordinates dest);
 };
 
 #endif

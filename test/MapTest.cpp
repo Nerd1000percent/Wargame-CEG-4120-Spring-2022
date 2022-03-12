@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 
+#include "Coordinates.h"
 #include "Map.h"
 #include "UnitDatabase.h"
 #include "nlohmann/json.hpp"
@@ -14,23 +15,32 @@ class MapTestSuite : public testing::Test
 public:
   // Override this to define how to set up the environment.
   void SetUp() override {
-    //pMap = std::make_shared<Map>(5);
+    
     UnitDatabase::getUnitDatabase().clear();
+
+    Coordinates dimensions(3, 3);
+    p_map = std::make_shared<Map>(dimensions);
   }
 
   // Override this to define how to tear down the environment.
   void TearDown() override {
-    //pMap.reset();
     UnitDatabase::getUnitDatabase().clear();
+    p_map.reset();
   }
 
-  std::shared_ptr<Map> p_map;
+  shared_ptr<Map> p_map;
 };
+
+TEST_F(MapTestSuite, testSize)
+{
+    EXPECT_EQ(p_map->size().getColumn(), 3);
+    EXPECT_EQ(p_map->size().getRow(), 3);
+}
 
 TEST_F(MapTestSuite, testSerialization)
 {
   // serialize the map
-  nlohmann::json j = *p_map;
+  
 
   // change to _DEBUG to make this work again
 #ifdef DEBUG
@@ -38,8 +48,7 @@ TEST_F(MapTestSuite, testSerialization)
 #endif
 
   // deserialize the map
-  Map map(5);
-  j.get_to(map);
+  
 
   // verify all the fields
 }

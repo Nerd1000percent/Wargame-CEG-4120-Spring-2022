@@ -25,7 +25,7 @@ public:
   friend void from_json(const nlohmann::json& j, Map& m);
 
   //Constructor
-  Map(size_t dim);
+  Map(Coordinates dims);
   // don't need this constructor
   Map() = delete;
 

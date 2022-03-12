@@ -8,7 +8,7 @@
 #include <fstream>
 #include <string>
 
-Map::Map(size_t dim) : m_arrayOfTiles({ dim, dim }) {
+Map::Map(Coordinates dims) : m_arrayOfTiles({ dims.getRow(), dims.getColumn() }) {
 	
 }
 

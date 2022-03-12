@@ -56,61 +56,61 @@ TEST_F(TilesTestSuite, serialization)
     EXPECT_EQ((*i).get(), (*j).get());
 
     // advance to the next units
-    ++i; 
+    ++i;
     ++j;
   }
 }
 
 TEST_F(TilesTestSuite, serialization2)
 {
-    // build a tile
-    Tiles original("terrainName", 1);
-    UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit1", 1, 2, 3));
-    UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit2", 4, 5, 6));
-    original.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit1"));
-    original.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit2"));
+  // build a tile
+  Tiles original("terrainName", 1);
+  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit1", 1, 2, 3));
+  UnitDatabase::getUnitDatabase().addUnit(std::make_shared<Unit>("unit2", 4, 5, 6));
+  original.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit1"));
+  original.addUnit(UnitDatabase::getUnitDatabase().getUnit("unit2"));
 
-    // serialize it to json
-    nlohmann::json json = original;
-    //cout << __FUNCTION__ << ":" << __LINE__ << " original=" << json.dump() << endl;
+  // serialize it to json
+  nlohmann::json json = original;
+  //cout << __FUNCTION__ << ":" << __LINE__ << " original=" << json.dump() << endl;
 
-    // clear the global datbase to see if the units get restored
-    UnitDatabase::getUnitDatabase().clear();
-    // verify that there is nothing in the database
-    EXPECT_EQ(UnitDatabase::getUnitDatabase().getUnit("unit1"), nullptr);
+  // clear the global datbase to see if the units get restored
+  UnitDatabase::getUnitDatabase().clear();
+  // verify that there is nothing in the database
+  EXPECT_EQ(UnitDatabase::getUnitDatabase().getUnit("unit1"), nullptr);
 
-    // deserialize from json
-    Tiles copy;
-    json.get_to(copy);
+  // deserialize from json
+  Tiles copy;
+  json.get_to(copy);
 
-    // verify that there is something in the database
-    EXPECT_NE(UnitDatabase::getUnitDatabase().getUnit("unit1"), nullptr);
-    EXPECT_NE(UnitDatabase::getUnitDatabase().getUnit("unit2"), nullptr);
+  // verify that there is something in the database
+  EXPECT_NE(UnitDatabase::getUnitDatabase().getUnit("unit1"), nullptr);
+  EXPECT_NE(UnitDatabase::getUnitDatabase().getUnit("unit2"), nullptr);
 
-    // verify that the copy matches the original
-    EXPECT_EQ(original.getTerrain().getName(), copy.getTerrain().getName());
-    EXPECT_EQ(original.getUnits().size(), copy.getUnits().size());
+  // verify that the copy matches the original
+  EXPECT_EQ(original.getTerrain().getName(), copy.getTerrain().getName());
+  EXPECT_EQ(original.getUnits().size(), copy.getUnits().size());
 
-    auto origUnits = original.getUnits();
-    auto copyUnits = copy.getUnits();
+  auto origUnits = original.getUnits();
+  auto copyUnits = copy.getUnits();
 
-    auto i = origUnits.begin();
-    auto j = copyUnits.begin();
-    while (i != origUnits.end() && j != copyUnits.end())
-    {        
-        // grab temporary pointers to both i and j
-        Unit* tempI = (*i).get();
-        Unit* tempJ = (*j).get();
+  auto i = origUnits.begin();
+  auto j = copyUnits.begin();
+  while (i != origUnits.end() && j != copyUnits.end())
+  {
+    // grab temporary pointers to both i and j
+    auto tempI = *i;
+    auto tempJ = *j;
 
-        // compare the pointers' contents one by one instead of the pointers themselves
-        EXPECT_EQ(tempI->getID(), tempJ->getID());
-        EXPECT_EQ(tempI->isActive(), tempJ->isActive());
-        EXPECT_EQ(tempI->getMovement(), tempJ->getMovement());
-        EXPECT_EQ(tempI->getAttackPower(), tempJ->getAttackPower());
-        EXPECT_EQ(tempI->getDefensePower(), tempJ->getDefensePower());
+    // compare the pointers' contents one by one instead of the pointers themselves
+    EXPECT_EQ(tempI->getID(), tempJ->getID());
+    EXPECT_EQ(tempI->isActive(), tempJ->isActive());
+    EXPECT_EQ(tempI->getMovement(), tempJ->getMovement());
+    EXPECT_DOUBLE_EQ(tempI->getAttackPower(), tempJ->getAttackPower());
+    EXPECT_DOUBLE_EQ(tempI->getDefensePower(), tempJ->getDefensePower());
 
-        // advance to the next units
-        ++i;
-        ++j;
-    }
+    // advance to the next units
+    ++i;
+    ++j;
+  }
 }

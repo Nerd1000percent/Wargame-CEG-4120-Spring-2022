@@ -1,7 +1,7 @@
 #include "Coordinates.h"
 using namespace std;
 
-Coordinates::Coordinates(size_t column, size_t row) {
+Coordinates::Coordinates(size_t row, size_t column) {
   m_column = column;
   m_row = row;
 }

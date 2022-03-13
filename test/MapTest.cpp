@@ -168,4 +168,21 @@ TEST_F(BattleMapTestSuite, moveAway)
   nlohmann::json j = *pMap;
   std::cout << j.dump() << std::endl;
 
+  Tiles& sourceTile = pMap->getTile({ 1, 1 });
+  Tiles& destTile = pMap->getTile({ 1, 0 });
+
+  auto sourceTileUnits = sourceTile.getUnits();
+  EXPECT_EQ(sourceTileUnits.size(), 1);
+
+  auto destTileUnits = destTile.getUnits();
+  EXPECT_EQ(destTileUnits.size(), 0);
+
+  bool success = pMap->moveUnit("weak", { 1, 1 }, { 1, 0 });
+  EXPECT_EQ(success, true);
+
+  sourceTileUnits = sourceTile.getUnits();
+  destTileUnits = destTile.getUnits();
+
+  EXPECT_EQ(sourceTileUnits.size(), 0);
+  //EXPECT_EQ(destTileUnits.size(), 1);
 }

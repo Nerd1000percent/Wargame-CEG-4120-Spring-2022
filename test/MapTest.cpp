@@ -168,21 +168,25 @@ TEST_F(BattleMapTestSuite, moveAway)
   nlohmann::json j = *pMap;
   std::cout << j.dump() << std::endl;
 
+  // check the source tile where the "weak" unit is located before the move to make sure it's there
   Tiles& sourceTile = pMap->getTile({ 1, 1 });
-  Tiles& destTile = pMap->getTile({ 1, 0 });
-
   auto sourceTileUnits = sourceTile.getUnits();
   EXPECT_EQ(sourceTileUnits.size(), 1);
 
+  // check the destination tile before the move to make sure it is empty
+  Tiles& destTile = pMap->getTile({ 1, 0 });
   auto destTileUnits = destTile.getUnits();
   EXPECT_EQ(destTileUnits.size(), 0);
 
+  // check whether the "weak" unit was successfully moved
   bool success = pMap->moveUnit("weak", { 1, 1 }, { 1, 0 });
   EXPECT_EQ(success, true);
 
+  // check the source tile after the move to make sure the "weak" unit is gone
   sourceTileUnits = sourceTile.getUnits();
-  destTileUnits = destTile.getUnits();
-
   EXPECT_EQ(sourceTileUnits.size(), 0);
-  //EXPECT_EQ(destTileUnits.size(), 1);
+
+  // check the destination tile after the move to make sure the "weak" unit is there
+  destTileUnits = destTile.getUnits();
+  EXPECT_EQ(destTileUnits.size(), 1);
 }

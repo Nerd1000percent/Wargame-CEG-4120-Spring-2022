@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <fstream>
 
 #include "Coordinates.h"
 #include "Map.h"
@@ -35,8 +36,8 @@ public:
 
     // clear database
     UnitDatabase::getUnitDatabase().clear();
-    UnitDatabase::getUnitDatabase().addUnit(make_shared<Unit>("weak", "losers", 1, 1.0, 1.0));
-    UnitDatabase::getUnitDatabase().addUnit(make_shared<Unit>("strong", "winners", 1, 10, 10));
+    UnitDatabase::getUnitDatabase().addUnit(make_shared<Unit>("weak", "red", 1, 1.0, 1.0));
+    UnitDatabase::getUnitDatabase().addUnit(make_shared<Unit>("strong", "blue", 1, 10, 10));
 
     /*
        1 1 1 1
@@ -185,4 +186,9 @@ TEST_F(BattleMapTestSuite, moveAway)
 
   EXPECT_EQ(sourceTileUnits.size(), 0);
   //EXPECT_EQ(destTileUnits.size(), 1);
+
+  //std::cout << pMap->mapToHtml() << std::endl;
+  //ofstream output;
+  //output.open("war.html");
+  //output << pMap->mapToHtml() << std::endl;
 }

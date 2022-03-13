@@ -54,6 +54,7 @@ void Tiles::addUnit(std::string id, std::string team, int numMoves, int attackPo
 //Overloaded funtion for the pointer const in the Unit class. 
 void Tiles::addUnit(std::shared_ptr<Unit> unit) {
   m_units[unit->getID()] = unit;
+  m_team = unit->getTeam();
 }
 
 void Tiles::removeUnit(std::shared_ptr<Unit> unit) {

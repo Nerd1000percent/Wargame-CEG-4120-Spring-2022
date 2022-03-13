@@ -200,6 +200,74 @@ TEST_F(BattleMapTestSuite, badSourceCoords)
     EXPECT_EQ(destTileUnits.size(), 0);
 }
 
+TEST_F(BattleMapTestSuite, moveAway)
+{
+    nlohmann::json j = *pMap;
+    //std::cout << j.dump() << std::endl;
+
+    // check the source tile where the "weak" unit is located before the move to make sure it's there
+    Tiles& sourceTile = pMap->getTile({ 1, 1 });
+    auto sourceTileUnits = sourceTile.getUnits();
+    EXPECT_EQ(sourceTileUnits.size(), 1);
+
+    // check the destination tile before the move to make sure it is empty
+    Tiles& destTile = pMap->getTile({ 1, 0 });
+    auto destTileUnits = destTile.getUnits();
+    EXPECT_EQ(destTileUnits.size(), 0);
+
+    // check whether the "weak" unit was successfully moved
+    bool success = pMap->moveUnit("weak", { 1, 1 }, { 1, 0 });
+    EXPECT_EQ(success, true);
+
+    // check the source tile after the move to make sure the "weak" unit is gone
+    sourceTileUnits = sourceTile.getUnits();
+    EXPECT_EQ(sourceTileUnits.size(), 0);
+
+    // check the destination tile after the move to make sure the "weak" unit is there
+    destTileUnits = destTile.getUnits();
+    EXPECT_EQ(destTileUnits.size(), 1);
+}
+
+TEST_F(BattleMapTestSuite, moveTwice)
+{
+    nlohmann::json j = *pMap;
+    //std::cout << j.dump() << std::endl;
+
+    // check aTile where the "weak" unit is located before the move to make sure it's there
+    Tiles& aTile = pMap->getTile({ 1, 1 });
+    auto aTileUnits = aTile.getUnits();
+    EXPECT_EQ(aTileUnits.size(), 1);
+
+    // check bTile before the move to make sure it is empty
+    Tiles& bTile = pMap->getTile({ 1, 0 });
+    auto bTileUnits = bTile.getUnits();
+    EXPECT_EQ(bTileUnits.size(), 0);
+
+    // check whether the "weak" unit was successfully moved from aTile to bTile
+    bool success = pMap->moveUnit("weak", { 1, 1 }, { 1, 0 });
+    EXPECT_EQ(success, true);
+
+    // check aTile after the move to make sure the "weak" unit is gone
+    aTileUnits = aTile.getUnits();
+    EXPECT_EQ(aTileUnits.size(), 0);
+
+    // check bTile after the move to make sure the "weak" unit is there
+    bTileUnits = bTile.getUnits();
+    EXPECT_EQ(bTileUnits.size(), 1);
+
+    // attempt to move from bTile to aTile with no moves left
+    success = pMap->moveUnit("weak", { 1, 0 }, { 1, 1 });
+    EXPECT_EQ(success, false);
+    
+    // check aTile after the move attempt to make sure the "weak" unit did not move to it
+    aTileUnits = aTile.getUnits();
+    EXPECT_EQ(aTileUnits.size(), 0);
+
+    // check bTile after the move attempt to make sure the "weak" unit is still there
+    bTileUnits = bTile.getUnits();
+    EXPECT_EQ(bTileUnits.size(), 1);
+}
+
 TEST_F(BattleMapTestSuite, moveMultipleTiles)
 {
     nlohmann::json j = *pMap;
@@ -282,33 +350,5 @@ TEST_F(BattleMapTestSuite, killAndReplace)
     // check the destination tile where the "weak" unit started and confirm that only one unit is there
     destinationTileUnits = destinationTile.getUnits();
     EXPECT_EQ(destinationTileUnits.size(), 1);
-}
-
-TEST_F(BattleMapTestSuite, moveAway)
-{
-  nlohmann::json j = *pMap;
-  //std::cout << j.dump() << std::endl;
-
-  // check the source tile where the "weak" unit is located before the move to make sure it's there
-  Tiles& sourceTile = pMap->getTile({ 1, 1 });
-  auto sourceTileUnits = sourceTile.getUnits();
-  EXPECT_EQ(sourceTileUnits.size(), 1);
-
-  // check the destination tile before the move to make sure it is empty
-  Tiles& destTile = pMap->getTile({ 1, 0 });
-  auto destTileUnits = destTile.getUnits();
-  EXPECT_EQ(destTileUnits.size(), 0);
-
-  // check whether the "weak" unit was successfully moved
-  bool success = pMap->moveUnit("weak", { 1, 1 }, { 1, 0 });
-  EXPECT_EQ(success, true);
-
-  // check the source tile after the move to make sure the "weak" unit is gone
-  sourceTileUnits = sourceTile.getUnits();
-  EXPECT_EQ(sourceTileUnits.size(), 0);
-
-  // check the destination tile after the move to make sure the "weak" unit is there
-  destTileUnits = destTile.getUnits();
-  EXPECT_EQ(destTileUnits.size(), 1);
 }
 

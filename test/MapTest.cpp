@@ -401,14 +401,26 @@ TEST_F(BattleMapTestSuite, killAndReplace)
 
 TEST_F(MapGeneration, medium)
 {
-  std::ofstream output;
-  output.open("medium.html");
-  output << this->generateMap({ 6, 6 }, 12, 4)->mapToHtml();
+  auto pmap = this->generateMap({ 6, 6 }, 12, 4);
+  std::ofstream mapOutput;
+  mapOutput.open("medium.html");
+  mapOutput << pmap->mapToHtml();
+
+  ofstream jsonOputput;
+  jsonOputput.open("medium.json");
+  nlohmann::json j = *pmap;
+  jsonOputput << std::setw(4) << j << std::endl;
 }
 
 TEST_F(MapGeneration, large)
 {
-  std::ofstream output;
-  output.open("large.html");
-  output << this->generateMap({12, 12}, 24, 36)->mapToHtml();
+  auto pmap = this->generateMap({ 12, 12 }, 24, 36);
+  std::ofstream mapOutput;
+  mapOutput.open("large.html");
+  mapOutput << pmap->mapToHtml();
+
+  ofstream jsonOputput;
+  jsonOputput.open("large.json");
+  nlohmann::json j = *pmap;
+  jsonOputput << std::setw(4) << j << std::endl;
 }

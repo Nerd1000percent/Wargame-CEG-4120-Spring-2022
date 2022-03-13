@@ -200,6 +200,34 @@ TEST_F(BattleMapTestSuite, badSourceCoords)
     EXPECT_EQ(destTileUnits.size(), 0);
 }
 
+TEST_F(BattleMapTestSuite, moveMultiple)
+{
+    nlohmann::json j = *pMap;
+    std::cout << j.dump() << std::endl;
+
+    // check the source tile where the "weak" unit is located before the move to make sure it's there
+    Tiles& sourceTile = pMap->getTile({ 1, 1 });
+    auto sourceTileUnits = sourceTile.getUnits();
+    EXPECT_EQ(sourceTileUnits.size(), 1);
+
+    // check the destination tile before the move to make sure it is empty
+    Tiles& destTile = pMap->getTile({ 2, 2 });
+    auto destTileUnits = destTile.getUnits();
+    EXPECT_EQ(destTileUnits.size(), 0);
+
+    // check whether the "weak" unit was successfully moved
+    bool success = pMap->moveUnit("weak", { 1, 1 }, { 2, 2 });
+    EXPECT_EQ(success, false);
+
+    // check the source tile after the move to make sure the "weak" unit is still there
+    sourceTileUnits = sourceTile.getUnits();
+    EXPECT_EQ(sourceTileUnits.size(), 1);
+
+    // check the destination tile after the move to make sure it's still empty
+    destTileUnits = destTile.getUnits();
+    EXPECT_EQ(destTileUnits.size(), 0);
+}
+
 TEST_F(BattleMapTestSuite, moveAway)
 {
   nlohmann::json j = *pMap;

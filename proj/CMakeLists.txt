@@ -5,6 +5,7 @@ add_library (Wargame STATIC
   header/Coordinates.h
   source/Coordinates.cpp
   source/Wargame.cpp
+  source/MapHtml.cpp
   source/Map.cpp
   header/Map.h
   source/Terrain.cpp

@@ -8,6 +8,8 @@
 #include <array>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <iostream>
 
 Map::Map(Coordinates dims) : m_arrayOfTiles({ dims.getRow(), dims.getColumn() }) {
 

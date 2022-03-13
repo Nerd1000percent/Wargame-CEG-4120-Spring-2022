@@ -166,7 +166,7 @@ TEST_F(MapTestSuite, serializationTest)
 TEST_F(BattleMapTestSuite, badSourceCoords)
 {
     nlohmann::json j = *pMap;
-    std::cout << j.dump() << std::endl;
+    //std::cout << j.dump() << std::endl;
 
     // check the tile where the "weak" unit is really located before the move attempt
     Tiles& realSource = pMap->getTile({ 1, 1 });
@@ -203,7 +203,7 @@ TEST_F(BattleMapTestSuite, badSourceCoords)
 TEST_F(BattleMapTestSuite, moveMultipleTiles)
 {
     nlohmann::json j = *pMap;
-    std::cout << j.dump() << std::endl;
+    //std::cout << j.dump() << std::endl;
 
     // check the source tile where the "weak" unit is located before the move to make sure it's there
     Tiles& sourceTile = pMap->getTile({ 1, 1 });
@@ -231,7 +231,7 @@ TEST_F(BattleMapTestSuite, moveMultipleTiles)
 TEST_F(BattleMapTestSuite, dieFighting)
 {
     nlohmann::json j = *pMap;
-    std::cout << j.dump() << std::endl;
+    //std::cout << j.dump() << std::endl;
 
     // check the source tile where the "weak" unit is located before the move to make sure it's there
     Tiles& sourceTile = pMap->getTile({ 1, 1 });
@@ -256,10 +256,38 @@ TEST_F(BattleMapTestSuite, dieFighting)
     EXPECT_EQ(destTileUnits.size(), 1);
 }
 
+TEST_F(BattleMapTestSuite, killAndReplace)
+{
+    nlohmann::json j = *pMap;
+    //std::cout << j.dump() << std::endl;
+
+    // check the source tile where the "strong" unit is located before the move to make sure it's there
+    Tiles& sourceTile = pMap->getTile({ 1, 2 });
+    auto sourceTileUnits = sourceTile.getUnits();
+    EXPECT_EQ(sourceTileUnits.size(), 1);
+
+    // check the destination tile where the "weak" unit is located before the move to make sure it's there
+    Tiles& destinationTile = pMap->getTile({ 1, 1 });
+    auto destinationTileUnits = sourceTile.getUnits();
+    EXPECT_EQ(destinationTileUnits.size(), 1);
+
+    // check whether the "strong" unit was successfully moved
+    bool success = pMap->moveUnit("strong", { 1, 2 }, { 1, 1 });
+    EXPECT_EQ(success, true);
+
+    // check the source tile where the "strong" unit started and confirm that it is no longer there
+    sourceTileUnits = sourceTile.getUnits();
+    EXPECT_EQ(sourceTileUnits.size(), 0);
+
+    // check the destination tile where the "weak" unit started and confirm that only one unit is there
+    destinationTileUnits = destinationTile.getUnits();
+    EXPECT_EQ(destinationTileUnits.size(), 1);
+}
+
 TEST_F(BattleMapTestSuite, moveAway)
 {
   nlohmann::json j = *pMap;
-  std::cout << j.dump() << std::endl;
+  //std::cout << j.dump() << std::endl;
 
   // check the source tile where the "weak" unit is located before the move to make sure it's there
   Tiles& sourceTile = pMap->getTile({ 1, 1 });

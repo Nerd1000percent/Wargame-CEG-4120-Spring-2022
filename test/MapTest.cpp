@@ -64,6 +64,7 @@ public:
   std::shared_ptr<Map> pMap;
 };
 
+// test the size function of the map class
 TEST_F(MapTestSuite, testSize)
 {
     // make a map
@@ -87,6 +88,7 @@ TEST_F(MapTestSuite, testSize)
     EXPECT_EQ(map.size().getRow(), dimensions.getRow());
 }
 
+// test that the contents of a Map object can be written and read from JSON
 TEST_F(MapTestSuite, serializationTest)
 {
   // make a map
@@ -131,6 +133,7 @@ TEST_F(MapTestSuite, serializationTest)
   }
 }
 
+// test that the moveUnit does nothing and returns false when given incorrect source coordinates
 TEST_F(BattleMapTestSuite, badSourceCoords)
 {
     nlohmann::json j = *pMap;
@@ -168,6 +171,7 @@ TEST_F(BattleMapTestSuite, badSourceCoords)
     EXPECT_EQ(destTileUnits.size(), 0);
 }
 
+// test that the moveUnit function moves a unit and returns true when moving to an adjacent, neutral tile
 TEST_F(BattleMapTestSuite, moveAway)
 {
     nlohmann::json j = *pMap;
@@ -196,6 +200,7 @@ TEST_F(BattleMapTestSuite, moveAway)
     EXPECT_EQ(destTileUnits.size(), 1);
 }
 
+// test that the moveUnit function does nothing and returns false when a unit tries to move more than it has movement points for
 TEST_F(BattleMapTestSuite, moveTwice)
 {
     nlohmann::json j = *pMap;
@@ -236,6 +241,7 @@ TEST_F(BattleMapTestSuite, moveTwice)
     EXPECT_EQ(bTileUnits.size(), 1);
 }
 
+// test that the moveUnit function does nothing and returns false if a unit tries to move more than one tile at a time
 TEST_F(BattleMapTestSuite, moveMultipleTiles)
 {
     nlohmann::json j = *pMap;
@@ -264,6 +270,7 @@ TEST_F(BattleMapTestSuite, moveMultipleTiles)
     EXPECT_EQ(destTileUnits.size(), 0);
 }
 
+// test that the moveUnit function removes a unit from the Map if it dies while attacking an enemy-occupied tile
 TEST_F(BattleMapTestSuite, dieFighting)
 {
     nlohmann::json j = *pMap;
@@ -292,6 +299,7 @@ TEST_F(BattleMapTestSuite, dieFighting)
     EXPECT_EQ(destTileUnits.size(), 1);
 }
 
+// test that the moveUnit function moves a unit if it defeats an enemy unit occupying its destination
 TEST_F(BattleMapTestSuite, killAndReplace)
 {
     nlohmann::json j = *pMap;

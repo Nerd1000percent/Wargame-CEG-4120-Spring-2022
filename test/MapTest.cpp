@@ -137,7 +137,7 @@ TEST_F(MapTestSuite, serializationTest)
 TEST_F(BattleMapTestSuite, badSourceCoords)
 {
     nlohmann::json j = *pMap;
-    //std::cout << j.dump() << std::endl;
+    std::cout << j.dump() << std::endl;
 
     // check the tile where the "weak" unit is really located before the move attempt
     Tiles& realSource = pMap->getTile({ 1, 1 });

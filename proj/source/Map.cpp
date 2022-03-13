@@ -8,6 +8,8 @@
 #include <array>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <iostream>
 
 Map::Map(Coordinates dims) : m_arrayOfTiles({ dims.getRow(), dims.getColumn() }) {
 
@@ -137,4 +139,135 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 		unit->spendMovement(unit->getCurrentMovement());
 		return false;
 	}
+}
+
+std::string Map::mapToHtml()
+{
+	static const size_t height = 175;
+	nlohmann::json j = *this;
+	std::stringstream ss;
+	std::vector<size_t> dims;
+	j["map"]["dimensions"].get_to(dims);
+	ss << R"(
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            gap: 10px;
+            background-color: #3F3F3F;
+            padding: 10px;
+            align-content: space-around;
+        }
+            .grid-container > desert {
+                display: grid;
+                grid-template-columns: auto;
+                background-color: rgb(184 105 41);
+                border: 10px solid black;
+                text-align: center;
+                font-size: 10px;
+                height: )" << height << R"(px;
+                color: black;
+            }
+
+            .grid-container > plains {
+                display: grid;
+                grid-template-columns: auto;
+                background-color: rgb(48 150 39);
+                border: 10px solid black;
+                text-align: center;
+                font-size: 10px;
+                height: 175px;
+                color: black;
+            }
+
+        .red_button {
+            background-color: rgba(0, 0, 0, 0.0);
+            border: 10px solid red;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 50px;
+        }
+
+        .blue_button {
+            background-color: rgba(0, 0, 0, 0.0);
+            border: 10px solid blue;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 50px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <script>
+        const mapjson = ')" << j.dump() << R"(';
+        var mapdata = JSON.parse(mapjson);
+
+        function getTile(row, col) {
+            let dims = mapdata.map.dimensions;
+            let rows = dims[0];
+            let cols = dims[1];
+            let index = cols * row + col;
+            let tile = mapdata.map.data[index];
+            return tile;
+        }
+
+        function getUnits(row, col) {
+            let tile = getTile(row, col);
+            return tile.units;
+        }
+    </script>
+
+    <h1>Grid Container</h1>
+
+    <p>A Grid Container consists of grid items arranged in columns and rows</p>
+
+    <div class="grid-container">)" << std::endl;
+
+	for (size_t i = 0; i < m_arrayOfTiles.getDimension(0); i++)
+	{
+		for (size_t j = 0; j < m_arrayOfTiles.getDimension(1); j++)
+		{
+			Tiles& tile = m_arrayOfTiles.at({ i, j });
+			auto terrain = tile.getTerrain();
+			auto team = tile.getTeam();
+			auto units = tile.getUnits();
+
+			double attack = 0;
+			double defense = 0;
+			for (auto u : units)
+			{
+				attack += u->getAttackPower();
+				defense += u->getDefensePower();
+			}
+			ss << "<" << terrain.getName() << ">";
+			if (!team.empty())
+			{
+				ss << R"(<button type="button" class=)" << team << R"(_button" onclick="document.getElementById('metadata').innerHTML = JSON.stringify(window.getUnits)";
+				ss << "(" << i << ", " << j << "))\">";
+				ss << attack << "/" << defense << "</button>";
+			}
+			ss << "</" << terrain.getName() << ">" << endl;
+		}
+		ss << endl;
+	}
+
+	ss << R"(    </div>
+
+    <p>Direct child elements(s) of the grid container automatically becomes grid items.</p>
+    <h2><p id="metadata"></p></h2>
+</body>
+</html>)";
+
+	return ss.str();
 }

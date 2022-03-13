@@ -37,6 +37,8 @@ public:
   // tries to move the unit one tile.  fights if necessary.  returns
   // true if the end result is the unit on the new tile.
   bool moveUnit(std::string unitID, Coordinates source, Coordinates dest);
+
+  std::string mapToHtml();
 };
 
 #endif

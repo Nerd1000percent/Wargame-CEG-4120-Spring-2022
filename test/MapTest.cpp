@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <fstream>
+#include <random>
 
 #include "Coordinates.h"
 #include "Map.h"
@@ -26,6 +27,69 @@ public:
   void TearDown() override {
     UnitDatabase::getUnitDatabase().clear();
   }
+};
+
+class MapGeneration : public MapTestSuite
+{
+public:
+  // Override this to define how to set up the environment.
+  void SetUp() override {
+    // clear database
+    UnitDatabase::getUnitDatabase().clear();
+  }
+
+  // Override this to define how to tear down the environment.
+  void TearDown() override {
+    UnitDatabase::getUnitDatabase().clear();
+  }
+
+  std::shared_ptr<Map> generateMap(Coordinates size, size_t numRed, size_t numBlue)
+  {
+    Terrain biomes[] =
+    {
+      {"plains", 1},
+      {"desert", 2 }
+    };
+
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> biomeDistrib(0, 1);
+    std::uniform_int_distribution<> moveDistrib(2, 3);
+    std::uniform_int_distribution<> rowDistrib(0, size.getRow()-1);
+    std::uniform_int_distribution<> colDistrib(0, size.getColumn()-1);
+
+    auto pMap = std::make_shared<Map>(size);
+    for (size_t r = 0; r < pMap->size().getRow(); r++)
+      for (size_t c = 0; c < pMap->size().getColumn(); c++)
+      {
+        auto& tile = pMap->getTile({ r, c });
+        tile.setTerrain(biomes[biomeDistrib(gen)]);
+      }
+
+    for (size_t i = 0; i < numRed; i++)
+    {
+      std::string name = "red" + std::to_string(i);
+      UnitDatabase::getUnitDatabase().addUnit(make_shared<Unit>(name, "red", moveDistrib(gen), 1.0, 2.0));
+      size_t row = rowDistrib(gen);
+      size_t col = colDistrib(gen);
+      pMap->getTile({row, col}).addUnit(UnitDatabase::getUnitDatabase().getUnit(name));
+    }
+
+    for (size_t i = 0; i < numBlue; i++)
+    {
+      std::string name = "blue" + std::to_string(i);
+      UnitDatabase::getUnitDatabase().addUnit(make_shared<Unit>(name, "blue", moveDistrib(gen), 2.0, 1.0));
+      size_t row = rowDistrib(gen);
+      size_t col = colDistrib(gen);
+      while (pMap->getTile({ row, col }).getTeam() == "red") {
+        row = rowDistrib(gen);
+        col = colDistrib(gen);
+      }
+      pMap->getTile({ row, col }).addUnit(UnitDatabase::getUnitDatabase().getUnit(name));
+    }    
+
+    return pMap;
+  }  
 };
 
 class BattleMapTestSuite : public testing::Test
@@ -334,3 +398,17 @@ TEST_F(BattleMapTestSuite, killAndReplace)
     EXPECT_EQ(destinationTileUnits.size(), 1);
 }
 
+
+TEST_F(MapGeneration, medium)
+{
+  std::ofstream output;
+  output.open("medium.html");
+  output << this->generateMap({ 6, 6 }, 12, 4)->mapToHtml();
+}
+
+TEST_F(MapGeneration, large)
+{
+  std::ofstream output;
+  output.open("large.html");
+  output << this->generateMap({12, 12}, 24, 36)->mapToHtml();
+}

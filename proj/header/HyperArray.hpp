@@ -86,12 +86,22 @@ public:
     return m_data.at(index);
   }
 
+  const T& at(size_t index) const
+  {
+    return m_data.at(index);
+  }
+
   /**
   * Gets the object stored at the multi-dimensional indices given by parameter.
   * @param coords A vector of indices for each dimension of the HyperArray.
   * @returns The object stored at index.
   */
   T& at(const std::vector<size_t>& coords)
+  {
+    return at(toIndex(coords));
+  }
+
+  const T& at(const std::vector<size_t>& coords) const
   {
     return at(toIndex(coords));
   }

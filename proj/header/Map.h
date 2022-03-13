@@ -8,8 +8,9 @@
 #include "HyperArray.hpp"
 #include "nlohmann/json.hpp"
 
-//#include <string>
+#include <string>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -18,6 +19,23 @@ class Map {
 private:
   HyperArray<Tiles> m_arrayOfTiles;
   //Member functions
+  static const std::string HTML_TEMPLATE;
+  static const size_t ROW_HEIGHT = 175;
+
+  typedef std::string(Map::*ReplaceHtmlTags)() const;
+  std::string getRowHeightHtml() const;
+  std::string getMapJsonHtml() const;
+  std::string getTilesHtml() const;
+  std::string getColumnsHtml() const;
+
+  const std::map<std::string, ReplaceHtmlTags> HTML_TAGS =
+  {
+    {"ROW_HEIGHT", &Map::getRowHeightHtml},
+    {"MAP_JSON", &Map::getMapJsonHtml},
+    {"TILES", &Map::getTilesHtml},
+    {"COLUMNS", &Map::getColumnsHtml}
+  };
+
 public:
 
   // serializers
@@ -37,6 +55,8 @@ public:
   // tries to move the unit one tile.  fights if necessary.  returns
   // true if the end result is the unit on the new tile.
   bool moveUnit(std::string unitID, Coordinates source, Coordinates dest);
+
+  std::string mapToHtml();
 };
 
 #endif

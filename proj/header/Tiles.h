@@ -19,6 +19,7 @@ private:
   Terrain m_terrain;
   std::map<std::string, std::shared_ptr<Unit>> m_units;
   std::string m_team;
+  bool m_victoryPoint= true; 
   //Member functions
 public:
   //Constructor
@@ -34,7 +35,8 @@ public:
 
   void setTeam(std::string team);
   std::string getTeam() const;
-
+  void setVictoryPoint(bool victoryPoint);
+  bool getVictoryPoint();
   //functions
   void addUnit(std::string id, std::string team, int numMoves, int attackPower, int defensePower);
   void addUnit(std::shared_ptr<Unit> unit);

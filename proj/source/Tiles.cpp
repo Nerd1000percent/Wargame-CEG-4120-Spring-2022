@@ -11,6 +11,7 @@
 Tiles::Tiles() {
   this->m_terrain;
   this->m_units;
+  this->m_victoryPoint;
 }
 
 Tiles::Tiles(string terrainName, int terrainCost) {
@@ -82,12 +83,21 @@ std::string Tiles::getTeam() const
   return m_team;
 }
 
+//Done by Ahmed, VictoryPont setter
+void Tiles::setVictoryPoint(bool victoryPoint){
+ m_victoryPoint=victoryPoint;
+}
+//Done by Ahmed, VictoryPont getter
+bool Tiles::getVictoryPoint(){
+  return m_victoryPoint; 
+}
+
 void to_json(nlohmann::json& j, const Tiles& t)
 {
   j["terrain"] = t.getTerrain();
   j["team"] = t.getTeam();  
   j["units"] = std::vector<Unit>();
-  
+  j["Victory Point"]=t.getVictoryPoint();
   for (auto& u : t.getUnits())
   {
     j["units"].push_back(*u);

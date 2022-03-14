@@ -24,28 +24,26 @@ Map loadMap()
     return gameBoard;
 }
 
-void outputMap(std::unique_ptr<Map> gameBoard)
+void displayMap(std::unique_ptr<Map> gameBoard)
 {
     std::ofstream mapOutput;
     mapOutput.open(OUTPUT_FILE);
     mapOutput << gameBoard->mapToHtml();
+}
 
+void saveGame(std::unique_ptr<Map> gameBoard)
+{
     ofstream jsonOputput;
     jsonOputput.open(GAME_FILE);
     nlohmann::json j = *gameBoard;
     jsonOputput << std::setw(4) << j << std::endl;
 }
 
-//void processMoveCommand()
-//{
-//
-//}
-
 int main(int argc, char* argv[])
 {
     
     Map gameBoard = loadMap();
-    outputMap(std::make_unique<Map>(gameBoard));
+    displayMap(std::make_unique<Map>(gameBoard));
 
     return 0;
 }

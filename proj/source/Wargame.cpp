@@ -74,6 +74,8 @@ int main(int argc, char* argv[])
 
     while (command != "exit")
     {
+        p_gameBoard->resetUnitMovement();
+        
         if (team) cout << "Blue";
         else cout << "Red";
         cout << " player, it is now your turn." << std::endl;
@@ -81,7 +83,6 @@ int main(int argc, char* argv[])
         command = "";
         while (command != "exit" && command != "done")
         {
-            //std::cin >> userInput;
             getline(std::cin, userInput);
             std::vector<std::string> args;
             splitString(userInput, args);

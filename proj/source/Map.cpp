@@ -126,8 +126,8 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 		}
 		else
 		{
-			// spend the points without moving
-			unit->spendMovement(unit->getCurrentMovement());
+			// uncomment this to make units spend movement points without moving if they don't have enough to move to the destination
+			//unit->spendMovement(unit->getCurrentMovement());
 			return false;
 		}
 	}
@@ -138,5 +138,22 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 		// spend the points without moving
 		unit->spendMovement(unit->getCurrentMovement());
 		return false;
+	}
+}
+
+void Map::resetUnitMovement()
+{
+	for (size_t row = 0; row < this->size().getRow(); row++)
+	{
+		for (size_t col = 0; col < this->size().getRow(); col++)
+		{
+			auto& tile = this->getTile({ row, col });
+			auto units = tile.getUnits();
+			if (units.size() > 0)
+			{
+				for (auto unit : units)
+					unit->resetMovement();
+			}
+		}
 	}
 }

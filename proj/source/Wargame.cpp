@@ -18,16 +18,6 @@ bool loadMap(std::string inputFile, std::shared_ptr<Map> p_map)
     inFile >> j;
     j.get_to(*p_map);
     return true;
-
-    //// load
-    //std::ifstream inFile(INPUT_FILE);
-    //std::cout << "The file is open: " << inFile.is_open() << std::endl;
-    //nlohmann::json j;
-    //inFile >> j;
-    //std::cout << j.dump() << endl;
-    //Map gameBoard({ 0, 0 });
-    //j.get_to(gameBoard);
-    //return gameBoard;
 }
 
 void displayMap(std::shared_ptr<Map> p_map)
@@ -37,32 +27,80 @@ void displayMap(std::shared_ptr<Map> p_map)
     mapOutput << p_map->mapToHtml();
 }
 
-//void saveGame(std::string saveFile, Map& map)
-//{
-//    ofstream jsonOutput;
-//    jsonOutput.open(saveFile);
-//    nlohmann::json j = map;
-//    jsonOutput << std::setw(4) << j << std::endl;
-//
-//    //// L
-//    //ofstream jsonOutput;
-//    //jsonOutput.open(GAME_FILE);
-//    //nlohmann::json j = *gameBoard;
-//    //jsonOutput << std::setw(4) << j << std::endl;
-//}
+void logGameState(std::string saveFile, std::shared_ptr<Map> p_map)
+{
+    ofstream jsonOutput;
+    jsonOutput.open(saveFile);
+    nlohmann::json j = *p_map;
+    jsonOutput << std::setw(4) << j << std::endl;
+}
+
+void splitString(std::string s, std::vector<string>& v)
+{
+    string temp = "";
+    for (int i = 0; i < s.length(); ++i)
+    {
+
+        if (s[i] == ' ')
+        {
+            v.push_back(temp);
+            temp = "";
+        }
+        else
+        {
+            temp.push_back(s[i]);
+        }
+    }
+    v.push_back(temp);
+}
 
 int main(int argc, char* argv[])
 {
-    std::cout << "Enter the name of the file to load the game board from: " << std::endl;
+    std::cout << "Enter the name of the file to load the game board from: ";
     std::string inputFile;
     std::cin >> inputFile;
-    inputFile = MAP_DIR + inputFile;
     auto p_gameBoard = std::make_shared<Map>(Coordinates{ 0, 0 });
-    loadMap(inputFile, p_gameBoard);
+    if (!loadMap(MAP_DIR + inputFile, p_gameBoard))
+    {
+        std::cout << std::endl << inputFile << " does not exist." << std::endl;
+        std::cout << "Terminating." << std::endl;
+        return 1;
+    }
     displayMap(p_gameBoard);
 
-    //Map gameBoard = loadMap();
-    //displayMap(std::make_unique<Map>(gameBoard));
+    bool team = true; // blue is true, red is false
+    std::string userInput = "";
+    std::string command = "";
+
+    while (command != "exit")
+    {
+        if (team) cout << "Blue";
+        else cout << "Red";
+        cout << " player, it is now your turn." << std::endl;
+        
+        command = "";
+        while (command != "exit" && command != "done")
+        {
+            cin >> userInput;
+            std::vector<std::string> args;
+            splitString(userInput, args);
+            command = args[0];
+        }
+        
+        if (command == "done")
+        {
+            if (team) cout << "Blue";
+            else cout << "Red";
+            cout << " player's turn is over. " << std::endl << std::endl;
+        }
+
+        if (command == "exit")
+        {
+            std::cout << std::endl << "Terminating." << std::endl;
+        }
+
+        team = !team;
+    }
 
     return 0;
 }

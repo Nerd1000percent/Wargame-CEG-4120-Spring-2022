@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
     }
     displayMap(p_gameBoard);
 
-    bool team = true; // blue is true, red is false
+    std::string team = "blue";
     std::string userInput = "";
     std::string command = "";
     size_t turn = 1;
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
     {
         p_gameBoard->resetUnitMovement();
         
-        if (team) cout << "Blue";
+        if (team == "blue") cout << "Blue";
         else cout << "Red";
         cout << " player, it is now your turn." << std::endl;
         
@@ -95,6 +95,11 @@ int main(int argc, char* argv[])
             {
                 Coordinates source(stoi(args[2]), stoi(args[3]));
                 Coordinates dest(stoi(args[4]), stoi(args[5]));
+                
+                auto& sourceTile = p_gameBoard->getTile(source);
+                if (sourceTile.getTeam() != team)
+                    std::cout << "You may not move the other team's units." << std::endl;
+
                 if (!p_gameBoard->moveUnit(args[1], source, dest))
                     std::cout << "The unit did not successfully move." << std::endl;
                 displayMap(p_gameBoard);
@@ -111,7 +116,7 @@ int main(int argc, char* argv[])
         
         if (command == "done")
         {
-            if (team) cout << "Blue";
+            if (team == "blue") cout << "Blue";
             else cout << "Red";
             cout << " player's turn is over. " << std::endl << std::endl;
         }
@@ -122,13 +127,14 @@ int main(int argc, char* argv[])
         }
 
         // log the game state and increment the turn counter
-        if (!team) // the turn is only over once both red and blue have gone, so execute after red's turn
+        // NOTE: this only logs the state of the game if both blue and red have gone this turn; if only blue takes a turn, progress will be lost
+        if (team == "red") // the turn is only over once both red and blue have gone, so execute after red's turn
         {
             logGameState(MAP_DIR + "turn" + std::to_string(turn) + ".json", p_gameBoard);
             turn++;
         }
         
-        team = !team; // toggle teams
+        team = (team == "blue") ? "red" : "blue";
     }
 
     return 0;

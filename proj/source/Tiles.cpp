@@ -115,6 +115,11 @@ void from_json(const nlohmann::json& j, Tiles& t)
   j["team"].get_to(team);
   t.setTeam(team);
 
+//done by Ahmed, reading victory Point from Json
+  bool vicPoint;
+  j["victory point"].get_to(vicPoint)
+  t.setVictoryPoint(vicPoint);
+
   // clear the units
   t.setUnits({});
   std::vector<Unit> units;

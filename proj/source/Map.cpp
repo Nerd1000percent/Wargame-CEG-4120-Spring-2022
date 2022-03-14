@@ -152,7 +152,9 @@ void Map::resetUnitMovement()
 			if (units.size() > 0)
 			{
 				for (auto unit : units)
-					unit->resetMovement();
+				{
+					if (unit->isActive()) unit->resetMovement();
+				}
 			}
 		}
 	}

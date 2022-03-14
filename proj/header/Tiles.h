@@ -36,7 +36,7 @@ public:
   void setTeam(std::string team);
   std::string getTeam() const;
   void setVictoryPoint(bool victoryPoint);
-  bool getVictoryPoint();
+  bool getVictoryPoint() const;
   //functions
   void addUnit(std::string id, std::string team, int numMoves, int attackPower, int defensePower);
   void addUnit(std::shared_ptr<Unit> unit);

@@ -88,7 +88,8 @@ void Tiles::setVictoryPoint(bool victoryPoint){
  m_victoryPoint=victoryPoint;
 }
 //Done by Ahmed, VictoryPont getter
-bool Tiles::getVictoryPoint(){
+bool Tiles::getVictoryPoint() const
+{
   return m_victoryPoint; 
 }
 
@@ -98,7 +99,7 @@ void to_json(nlohmann::json& j, const Tiles& t)
   j["team"] = t.getTeam();  
   j["units"] = std::vector<Unit>();
   //done by Ahmed
-  j["Victory Point"]=t.getVictoryPoint();
+  j["victory_point"] = t.getVictoryPoint();
   for (auto& u : t.getUnits())
   {
     j["units"].push_back(*u);
@@ -117,7 +118,7 @@ void from_json(const nlohmann::json& j, Tiles& t)
 
 //done by Ahmed, reading victory Point from Json
   bool vicPoint;
-  j["victory point"].get_to(vicPoint)
+  j["victory_point"].get_to(vicPoint);
   t.setVictoryPoint(vicPoint);
 
   // clear the units

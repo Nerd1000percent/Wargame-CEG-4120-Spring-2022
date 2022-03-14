@@ -81,10 +81,23 @@ int main(int argc, char* argv[])
         command = "";
         while (command != "exit" && command != "done")
         {
-            cin >> userInput;
+            //std::cin >> userInput;
+            getline(std::cin, userInput);
             std::vector<std::string> args;
             splitString(userInput, args);
             command = args[0];
+
+            // move commands should be of the form:
+            // move unitID sourceX sourceY destX destY
+            if (args[0] == "move")
+            {
+                Coordinates source(stoi(args[2]), stoi(args[3]));
+                Coordinates dest(stoi(args[4]), stoi(args[5]));
+                if (p_gameBoard->moveUnit(args[1], source, dest))
+                    displayMap(p_gameBoard);
+                else
+                    std::cout << "Not a valid move." << std::endl;
+            }
         }
         
         if (command == "done")

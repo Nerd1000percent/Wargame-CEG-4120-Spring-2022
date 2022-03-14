@@ -71,6 +71,7 @@ int main(int argc, char* argv[])
     bool team = true; // blue is true, red is false
     std::string userInput = "";
     std::string command = "";
+    size_t turn = 1;
 
     while (command != "exit")
     {
@@ -102,7 +103,6 @@ int main(int argc, char* argv[])
             // this case is here so that the else statement doesn't print anything when these commands are entered
             else if (command == "exit" || command == "done" || command == "")
             {
-
             }
 
             else
@@ -121,7 +121,14 @@ int main(int argc, char* argv[])
             std::cout << std::endl << "Terminating." << std::endl;
         }
 
-        team = !team;
+        // log the game state and increment the turn counter
+        if (!team) // the turn is only over once both red and blue have gone, so execute after red's turn
+        {
+            logGameState(MAP_DIR + "turn" + std::to_string(turn) + ".json", p_gameBoard);
+            turn++;
+        }
+        
+        team = !team; // toggle teams
     }
 
     return 0;

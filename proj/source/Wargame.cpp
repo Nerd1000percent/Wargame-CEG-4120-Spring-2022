@@ -90,15 +90,23 @@ int main(int argc, char* argv[])
 
             // move commands should be of the form:
             // move unitID sourceX sourceY destX destY
-            if (args[0] == "move")
+            if (command == "move")
             {
                 Coordinates source(stoi(args[2]), stoi(args[3]));
                 Coordinates dest(stoi(args[4]), stoi(args[5]));
-                if (p_gameBoard->moveUnit(args[1], source, dest))
-                    displayMap(p_gameBoard);
-                else
-                    std::cout << "Not a valid move." << std::endl;
+                if (!p_gameBoard->moveUnit(args[1], source, dest))
+                    std::cout << "The unit did not successfully move." << std::endl;
+                displayMap(p_gameBoard);
             }
+
+            // this case is here so that the else statement doesn't print anything when these commands are entered
+            else if (command == "exit" || command == "done" || command == "")
+            {
+
+            }
+
+            else
+                std::cout << "That is not a recognized command." << std::endl;
         }
         
         if (command == "done")

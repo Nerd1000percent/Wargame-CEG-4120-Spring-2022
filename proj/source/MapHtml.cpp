@@ -88,6 +88,9 @@ const std::string Map::HTML_TEMPLATE = R"(
 
     <p>TODO: put some html here to describe the output below.</p>
 
+    <h2>Red Score: ${RED_SCORE}</h2>
+    <h2>Blue Score: ${BLUE_SCORE}</h2>
+
     <div class="grid-container">
 ${TILES}
     </div>
@@ -150,6 +153,16 @@ std::string Map::getColumnsHtml() const
   for (size_t j = 0; j < columns; j++)
     ss << (j + 1 < columns ? "auto " : "auto");
   return ss.str();
+}
+
+std::string Map::getRedScore() const
+{
+  return std::to_string(123.456);
+}
+
+std::string Map::getBlueScore() const
+{
+  return "blue score";
 }
 
 std::string Map::mapToHtml()

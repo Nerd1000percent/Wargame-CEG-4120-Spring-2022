@@ -27,13 +27,17 @@ private:
   std::string getMapJsonHtml() const;
   std::string getTilesHtml() const;
   std::string getColumnsHtml() const;
+  std::string getRedScore() const;
+  std::string getBlueScore() const;
 
   const std::map<std::string, ReplaceHtmlTags> HTML_TAGS =
   {
     {"ROW_HEIGHT", &Map::getRowHeightHtml},
     {"MAP_JSON", &Map::getMapJsonHtml},
     {"TILES", &Map::getTilesHtml},
-    {"COLUMNS", &Map::getColumnsHtml}
+    {"COLUMNS", &Map::getColumnsHtml},
+    {"RED_SCORE", &Map::getRedScore},
+    {"BLUE_SCORE", &Map::getBlueScore}
   };
 
 public:

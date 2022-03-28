@@ -60,6 +60,8 @@ public:
   // true if the end result is the unit on the new tile.
   bool moveUnit(std::string unitID, Coordinates source, Coordinates dest);
 
+  void resetUnitMovement();
+
   std::string mapToHtml();
 };
 

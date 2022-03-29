@@ -18,6 +18,9 @@ class Map {
   //Attributes
 private:
   HyperArray<Tiles> m_arrayOfTiles;
+  size_t blueScore;
+  size_t redScore;
+
   //Member functions
   static const std::string HTML_TEMPLATE;
   static const size_t ROW_HEIGHT = 175;
@@ -61,6 +64,12 @@ public:
   bool moveUnit(std::string unitID, Coordinates source, Coordinates dest);
 
   void resetUnitMovement();
+
+  std::vector<Coordinates> getVictoryPoints();
+
+  void setVictoryPoint(Coordinates coords, bool victoryPoint);
+
+  void clearVictoryPoints();
 
   std::string mapToHtml();
 };

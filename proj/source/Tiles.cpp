@@ -54,7 +54,7 @@ void Tiles::addUnit(std::string id, std::string team, int numMoves, int attackPo
 //Overloaded funtion for the pointer const in the Unit class. 
 void Tiles::addUnit(std::shared_ptr<Unit> unit) {
   m_units[unit->getID()] = unit;
-  m_team = unit->getTeam();
+  //m_team = unit->getTeam();
 }
 
 void Tiles::removeUnit(std::shared_ptr<Unit> unit) {
@@ -82,9 +82,20 @@ std::string Tiles::getTeam() const
   return m_team;
 }
 
+void Tiles::setVictoryPoint(bool victoryPoint)
+{
+    m_victoryPoint = victoryPoint;
+}
+
+bool Tiles::getVictoryPoint() const
+{
+    return m_victoryPoint;
+}
+
 void to_json(nlohmann::json& j, const Tiles& t)
 {
   j["terrain"] = t.getTerrain();
+  j["victory"] = t.getVictoryPoint();
   j["team"] = t.getTeam();  
   j["units"] = std::vector<Unit>();
   
@@ -103,6 +114,10 @@ void from_json(const nlohmann::json& j, Tiles& t)
   std::string team;
   j["team"].get_to(team);
   t.setTeam(team);
+
+  bool victoryPoint;
+  j["victory"].get_to(victoryPoint);
+  t.setVictoryPoint(victoryPoint);
 
   // clear the units
   t.setUnits({});

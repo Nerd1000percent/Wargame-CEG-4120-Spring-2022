@@ -157,12 +157,14 @@ std::string Map::getColumnsHtml() const
 
 std::string Map::getRedScore() const
 {
-  return std::to_string(123.456);
+  //return std::to_string(123.456);
+    return std::to_string(redScore);
 }
 
 std::string Map::getBlueScore() const
 {
-  return "blue score";
+  //return "blue score";
+    return std::to_string(blueScore);
 }
 
 std::string Map::mapToHtml()

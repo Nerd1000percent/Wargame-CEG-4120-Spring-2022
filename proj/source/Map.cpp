@@ -36,6 +36,7 @@ void from_json(const nlohmann::json& j, Map& m)
 	j["map"].get_to(m.m_arrayOfTiles);
 }
 
+// TODO: add a check to make sure the unit cannot attack multiple times on the same turn
 bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 {
 	// get the tiles
@@ -48,21 +49,39 @@ bool Map::moveUnit(std::string unitID, Coordinates source, Coordinates dest)
 		return false;
 
 	// measure vertical distance
-	size_t distance = 0;
+	size_t horizontalDistance = 0;
 	if (source.getRow() > dest.getRow())
-		distance += source.getRow() - dest.getRow();
+		horizontalDistance += source.getRow() - dest.getRow();
 	else
-		distance += dest.getRow() - source.getRow();
+		horizontalDistance += dest.getRow() - source.getRow();
+
+	// measure vertical distance
+	size_t verticalDistance = 0;
+	if (source.getColumn() > dest.getColumn())
+		verticalDistance += source.getColumn() - dest.getColumn();
+	else
+		verticalDistance += dest.getColumn() - source.getColumn();
+
+	// the unit may not move multiple tiles at once unless they are moving diagonally
+	if ((horizontalDistance != 1 && verticalDistance != 1) && (horizontalDistance + verticalDistance > 1))
+		return false;
+
+	// measure vertical distance
+	//size_t distance = 0;
+	//if (source.getRow() > dest.getRow())
+	//	distance += source.getRow() - dest.getRow();
+	//else
+	//	distance += dest.getRow() - source.getRow();
 
 	// measure horizontal distance
-	if (source.getColumn() > dest.getColumn())
-		distance += source.getColumn() - dest.getColumn();
-	else
-		distance += dest.getColumn() - source.getColumn();
+	//if (source.getColumn() > dest.getColumn())
+	//	distance += source.getColumn() - dest.getColumn();
+	//else
+	//	distance += dest.getColumn() - source.getColumn();
 
 	// make sure that the unit is only moving one tile at a time
-	if (distance != 1)
-		return false;
+	//if (distance != 1)
+	//	return false;
 
 	// get the destination units
 	auto destUnits = destTile.getUnits();

@@ -202,7 +202,7 @@ TEST_F(MapTestSuite, serializationTest)
 TEST_F(BattleMapTestSuite, badSourceCoords)
 {
     nlohmann::json j = *pMap;
-    std::cout << j.dump() << std::endl;
+    //std::cout << j.dump() << std::endl;
 
     // check the tile where the "weak" unit is really located before the move attempt
     Tiles& realSource = pMap->getTile({ 1, 1 });
@@ -323,12 +323,12 @@ TEST_F(BattleMapTestSuite, moveMultipleTiles)
     EXPECT_EQ(sourceTileUnits.size(), 1);
 
     // check the destination tile before the move to make sure it is empty
-    Tiles& destTile = pMap->getTile({ 2, 2 });
+    Tiles& destTile = pMap->getTile({ 1, 3 });
     auto destTileUnits = destTile.getUnits();
     EXPECT_EQ(destTileUnits.size(), 0);
 
     // check whether the "weak" unit was successfully moved
-    bool success = pMap->moveUnit("weak", { 1, 1 }, { 2, 2 });
+    bool success = pMap->moveUnit("weak", { 1, 1 }, { 1, 3 });
     EXPECT_EQ(success, false);
 
     // check the source tile after the move to make sure the "weak" unit is still there
